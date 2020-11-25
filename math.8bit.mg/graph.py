@@ -1,4 +1,11 @@
-from mg.graph import Link
+
+def graph():
+    for n in range(256):
+        yield (
+            "math.8b",
+            BaseNode(format(n, 'd'),  10),
+            BaseNode(format(n, '08b'), 2),
+        )
 
 class BaseNode:
     """display base with leading 0s and a subscript but ignore for marking"""
@@ -14,12 +21,3 @@ class BaseNode:
     def __repr__(self):
         return str(self)
 
-
-deck = [
-    Link(
-        "math.decimal--binary.0--255",
-        BaseNode(format(n, 'd'),  10),
-        BaseNode(format(n, '08b'), 2),
-    )
-    for n in range(256)
-]

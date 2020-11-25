@@ -1,0 +1,101 @@
+{
+  "'$0!$'-[math.factorial]-'$1$'": {
+    "priorParams": [
+      1,
+      1,
+      300
+    ],
+    "numDrills": 0,
+    "lastTime": 1606291458
+  },
+  "'$1!$'-[math.factorial]-'$1$'": {
+    "priorParams": [
+      1,
+      1,
+      300
+    ],
+    "numDrills": 0,
+    "lastTime": 1606291460
+  },
+  "'$2!$'-[math.factorial]-'$2$'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606291446
+  },
+  "'$3!$'-[math.factorial]-'$6$'": {
+    "priorParams": [
+      1.3033333333333261,
+      0.9999999999999943,
+      300
+    ],
+    "numDrills": 1,
+    "lastTime": 1606291506
+  },
+  "'$4!$'-[math.factorial]-'$24$'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606291433
+  },
+  "'$5!$'-[math.factorial]-'$120$'": {
+    "priorParams": [
+      1.3033333333333261,
+      0.9999999999999943,
+      300
+    ],
+    "numDrills": 1,
+    "lastTime": 1606291532
+  },
+  "'$6!$'-[math.factorial]-'$720$'": {
+    "priorParams": [
+      1.2099999999999977,
+      0.9999999999999983,
+      300
+    ],
+    "numDrills": 1,
+    "lastTime": 1606291500
+  },
+  "'$7!$'-[math.factorial]-'$5040$'": {
+    "priorParams": [
+      0.8482303321835024,
+      1.0000000000000007,
+      183.9123102311458
+    ],
+    "numDrills": 1,
+    "lastTime": 1606291493
+  },
+  "'$8!$'-[math.factorial]-'$40320$'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606291430
+  },
+  "'$9!$'-[math.factorial]-'$362880$'": {
+    "priorParams": [
+      1.2399999999999975,
+      0.9999999999999983,
+      300
+    ],
+    "numDrills": 1,
+    "lastTime": 1606291525
+  },
+  "'$10!$'-[math.factorial]-'$3628800$'": {
+    "priorParams": [
+      1.2666666666666628,
+      0.9999999999999974,
+      60
+    ],
+    "numDrills": 1,
+    "lastTime": 1606291482
+  }
+}
