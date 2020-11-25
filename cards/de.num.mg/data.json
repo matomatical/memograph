@@ -1,12 +1,12 @@
 {
   "0-[de.num.99]-'null'": {
     "priorParams": [
-      1,
-      1,
-      300
+      0.5434172135339872,
+      1.000000000000838,
+      50206.35953471134
     ],
-    "numDrills": 0,
-    "lastTime": 1606270179
+    "numDrills": 1,
+    "lastTime": 1606297162
   },
   "1-[de.num.99]-'eins'": {
     "priorParams": [
@@ -37,12 +37,12 @@
   },
   "4-[de.num.99]-'vier'": {
     "priorParams": [
-      1,
-      1,
-      300
+      0.5427599262825802,
+      0.9999999999991017,
+      50206.35953471134
     ],
-    "numDrills": 0,
-    "lastTime": 1606270194
+    "numDrills": 1,
+    "lastTime": 1606297144
   },
   "5-[de.num.99]-'f\u00fcnf'": {
     "priorParams": [
@@ -262,12 +262,12 @@
   },
   "29-[de.num.99]-'neunundzwanzig'": {
     "priorParams": [
-      1,
-      1,
-      300
+      0.5414254339875454,
+      1.0000000000003895,
+      50206.35953471134
     ],
-    "numDrills": 0,
-    "lastTime": 1606270256
+    "numDrills": 1,
+    "lastTime": 1606297139
   },
   "30-[de.num.99]-'drei\u00dfig'": {
     "priorParams": [
@@ -415,12 +415,12 @@
   },
   "46-[de.num.99]-'sechsundvierzig'": {
     "priorParams": [
-      1,
-      1,
-      300
+      0.5418437076925334,
+      1.0000000000009581,
+      50206.35953471134
     ],
-    "numDrills": 0,
-    "lastTime": 1606270256
+    "numDrills": 1,
+    "lastTime": 1606297160
   },
   "47-[de.num.99]-'siebenundvierzig'": {
     "priorParams": [
@@ -550,12 +550,12 @@
   },
   "61-[de.num.99]-'einundsechzig'": {
     "priorParams": [
-      1,
-      1,
-      300
+      0.5412860094197831,
+      1.000000000001362,
+      50206.35953471134
     ],
-    "numDrills": 0,
-    "lastTime": 1606270256
+    "numDrills": 1,
+    "lastTime": 1606297132
   },
   "62-[de.num.99]-'zweiundsechzig'": {
     "priorParams": [
@@ -577,12 +577,12 @@
   },
   "64-[de.num.99]-'vierundsechzig'": {
     "priorParams": [
-      1,
-      1,
-      300
+      0.5416644475340063,
+      1.000000000002169,
+      50206.35953471134
     ],
-    "numDrills": 0,
-    "lastTime": 1606270256
+    "numDrills": 1,
+    "lastTime": 1606297151
   },
   "65-[de.num.99]-'f\u00fcnfundsechzig'": {
     "priorParams": [

@@ -1,0 +1,695 @@
+{
+  "'to be'-[de.verb]-'sein'": {
+    "priorParams": [
+      1.323634259259266,
+      1.0000000000000033,
+      86400
+    ],
+    "numDrills": 3,
+    "lastTime": 1606297643
+  },
+  "'to have'-[de.verb]-'haben'": {
+    "priorParams": [
+      0.8992673404775264,
+      1.0000000000000013,
+      29995.52945587477
+    ],
+    "numDrills": 3,
+    "lastTime": 1606293072
+  },
+  "'to become, to will'-[de.verb]-'werden'": {
+    "priorParams": [
+      0.8987339276560145,
+      0.9999999999999999,
+      29995.52945587477
+    ],
+    "numDrills": 3,
+    "lastTime": 1606293059
+  },
+  "'to can'-[de.verb]-'k\u00f6nnen'": {
+    "priorParams": [
+      1.2707870370370338,
+      0.9999999999999978,
+      86400
+    ],
+    "numDrills": 3,
+    "lastTime": 1606293074
+  },
+  "'to must'-[de.verb]-'m\u00fcssen'": {
+    "priorParams": [
+      0.8741635995648189,
+      0.9999999999999978,
+      29995.52945587477
+    ],
+    "numDrills": 2,
+    "lastTime": 1606293062
+  },
+  "'to should/ought'-[de.verb]-'sollen'": {
+    "priorParams": [
+      1.2707175925925973,
+      1.0000000000000042,
+      86400
+    ],
+    "numDrills": 3,
+    "lastTime": 1606293065
+  },
+  "'to want'-[de.verb]-'wollen'": {
+    "priorParams": [
+      1.289222222222218,
+      0.9999999999999964,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297792
+  },
+  "'to may'-[de.verb]-'d\u00fcrfen'": {
+    "priorParams": [
+      1.2852777777777764,
+      0.999999999999999,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297717
+  },
+  "'to like'-[de.verb]-'m\u00f6gen'": {
+    "priorParams": [
+      1.2905000000000058,
+      1.0000000000000033,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297830
+  },
+  "'to say'-[de.verb]-'sagen'": {
+    "priorParams": [
+      1.2930555555555645,
+      1.0000000000000067,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297870
+  },
+  "'to make/do'-[de.verb]-'machen'": {
+    "priorParams": [
+      1.2926111111111094,
+      0.9999999999999979,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297857
+  },
+  "'to give'-[de.verb]-'geben'": {
+    "priorParams": [
+      1.2862222222222235,
+      1.000000000000001,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297727
+  },
+  "'to come'-[de.verb]-'kommen'": {
+    "priorParams": [
+      1.2912777777777733,
+      0.9999999999999963,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297860
+  },
+  "'to go'-[de.verb]-'gehen'": {
+    "priorParams": [
+      1.2916666666666665,
+      1.0,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297858
+  },
+  "'to know'-[de.verb]-'wissen'": {
+    "priorParams": [
+      1.2721111111111192,
+      1.0000000000000058,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297928
+  },
+  "'to see'-[de.verb]-'sehen'": {
+    "priorParams": [
+      1.2733888888888834,
+      0.9999999999999958,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297946
+  },
+  "'to let/allow, to have done'-[de.verb]-'lassen'": {
+    "priorParams": [
+      0.6649811777142622,
+      0.999999999999998,
+      7661.870998383767
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297422
+  },
+  "'to stand'-[de.verb]-'stehen'": {
+    "priorParams": [
+      1.2909444444444456,
+      1.000000000000001,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297850
+  },
+  "'to find'-[de.verb]-'finden'": {
+    "priorParams": [
+      1.2461666666666682,
+      1.0000000000000009,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606298097
+  },
+  "'to stay (at)'-[de.verb]-'bleiben'": {
+    "priorParams": [
+      1.2622777777777718,
+      0.9999999999999949,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606298043
+  },
+  "'to lie (down)'-[de.verb]-'liegen'": {
+    "priorParams": [
+      1.182735954029543,
+      0.9999999999989176,
+      3693.9774977764237
+    ],
+    "numDrills": 2,
+    "lastTime": 1606298095
+  },
+  "'to hail/be called'-[de.verb]-'hei\u00dfen'": {
+    "priorParams": [
+      1.2588333333333306,
+      0.9999999999999983,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297977
+  },
+  "'to think'-[de.verb]-'denken'": {
+    "priorParams": [
+      0.7217398641322211,
+      1.0000000000000029,
+      6794.691887909368
+    ],
+    "numDrills": 2,
+    "lastTime": 1606298092
+  },
+  "'to take'-[de.verb]-'nehmen'": {
+    "priorParams": [
+      0.5745661561117834,
+      1.0000000000000013,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297365
+  },
+  "'to do/perform'-[de.verb]-'tun'": {
+    "priorParams": [
+      0.5658829073385764,
+      0.9999999999999989,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297333
+  },
+  "'to believe'-[de.verb]-'glauben'": {
+    "priorParams": [
+      0.6050311136720119,
+      0.9999999999999979,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297354
+  },
+  "'to halt, to hold'-[de.verb]-'halten'": {
+    "priorParams": [
+      1.2596111111111046,
+      0.9999999999999952,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606298016
+  },
+  "'to name'-[de.verb]-'nennen'": {
+    "priorParams": [
+      0.5807474518486411,
+      0.9999999999999993,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297367
+  },
+  "'to show'-[de.verb]-'zeigen'": {
+    "priorParams": [
+      3.472554337248523,
+      2.2022496520090433,
+      207.3842963377311
+    ],
+    "numDrills": 6,
+    "lastTime": 1606298019
+  },
+  "'to lead'-[de.verb]-'f\u00fchren'": {
+    "priorParams": [
+      0.7448461362914298,
+      1.0000000000000029,
+      6794.691887909368
+    ],
+    "numDrills": 2,
+    "lastTime": 1606298100
+  },
+  "'to speak'-[de.verb]-'sprechen'": {
+    "priorParams": [
+      0.7145283524392146,
+      0.9999999999999952,
+      6794.691887909368
+    ],
+    "numDrills": 2,
+    "lastTime": 1606298048
+  },
+  "'to bring, to take'-[de.verb]-'bringen'": {
+    "priorParams": [
+      0.5857513579213344,
+      0.999999999999998,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297351
+  },
+  "'to live (alive)'-[de.verb]-'leben'": {
+    "priorParams": [
+      0.5783926725203146,
+      0.9999999999999996,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297348
+  },
+  "'to go, to ride, to drive, ...'-[de.verb]-'fahren'": {
+    "priorParams": [
+      1.2454444444444495,
+      1.0000000000000047,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606298014
+  },
+  "'to think/opine'-[de.verb]-'meinen'": {
+    "priorParams": [
+      0.9086707966811037,
+      0.9999999999999587,
+      4165.424941380791
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297427
+  },
+  "'to ask'-[de.verb]-'fragen'": {
+    "priorParams": [
+      1.2583333333333337,
+      1.0000000000000009,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297953
+  },
+  "'to know'-[de.verb]-'kennen'": {
+    "priorParams": [
+      0.7455820048315326,
+      1.000000000000003,
+      6794.691887909368
+    ],
+    "numDrills": 2,
+    "lastTime": 1606298061
+  },
+  "'to be valid (not expired)'-[de.verb]-'gelten'": {
+    "priorParams": [
+      0.9161130145667682,
+      0.9999999999999944,
+      4165.424941380791
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297418
+  },
+  "'to set/place'-[de.verb]-'stellen'": {
+    "priorParams": [
+      0.9641273235063318,
+      0.9999999999999957,
+      4165.424941380791
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297438
+  },
+  "'to play'-[de.verb]-'spielen'": {
+    "priorParams": [
+      1.2363888888888843,
+      0.999999999999997,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606298051
+  },
+  "'to work'-[de.verb]-'arbeiten'": {
+    "priorParams": [
+      0.5932572170303771,
+      0.9999999999999978,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297331
+  },
+  "'to require/need'-[de.verb]-'brauchen'": {
+    "priorParams": [
+      1.259555555555561,
+      1.0000000000000047,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297985
+  },
+  "'to follow'-[de.verb]-'folgen'": {
+    "priorParams": [
+      0.5670602970027399,
+      0.9999999999999988,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297329
+  },
+  "'to learn'-[de.verb]-'lernen'": {
+    "priorParams": [
+      1.247055555555553,
+      0.9999999999999983,
+      18000
+    ],
+    "numDrills": 1,
+    "lastTime": 1606298039
+  },
+  "'to exist, to insist, to pass (an exam)'-[de.verb]-'bestehen'": {
+    "priorParams": [
+      0.5780983251042725,
+      0.9999999999999988,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297362
+  },
+  "'to understand'-[de.verb]-'verstehen'": {
+    "priorParams": [
+      0.6244580431307115,
+      1.0000000000000004,
+      6794.691887909368
+    ],
+    "numDrills": 1,
+    "lastTime": 1606297179
+  },
+  "'to set/place'-[de.verb]-'setzen'": {
+    "priorParams": [
+      0.8964271479015491,
+      0.9999999999999958,
+      4165.424941380791
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297414
+  },
+  "'to get/receive'-[de.verb]-'bekommen'": {
+    "priorParams": [
+      0.8973874340803403,
+      0.9999999999999983,
+      4165.424941380791
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297433
+  },
+  "'to begin'-[de.verb]-'beginnen'": {
+    "priorParams": [
+      1.0776875117869849,
+      0.9999999999999986,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297934
+  },
+  "'to tell'-[de.verb]-'erz\u00e4hlen'": {
+    "priorParams": [
+      2.1667496970994513,
+      2.687335064751972,
+      233.85191732648016
+    ],
+    "numDrills": 6,
+    "lastTime": 1606298066
+  },
+  "'to try/attempt'-[de.verb]-'versuchen'": {
+    "priorParams": [
+      1.4616953398998354,
+      0.9999999999999941,
+      563.7289642426202
+    ],
+    "numDrills": 4,
+    "lastTime": 1606298037
+  },
+  "'to write'-[de.verb]-'schreiben'": {
+    "priorParams": [
+      1.0548505413051203,
+      0.9999999999999974,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297921
+  },
+  "'to walk'-[de.verb]-'laufen'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606297204
+  },
+  "'to explain'-[de.verb]-'erkl\u00e4ren'": {
+    "priorParams": [
+      1.024401247329318,
+      1.000000000000015,
+      919.5615511557289
+    ],
+    "numDrills": 3,
+    "lastTime": 1606297853
+  },
+  "'to correspond'-[de.verb]-'entsprechen'": {
+    "priorParams": [
+      1.1059618561931035,
+      1.0000000000000029,
+      919.5615511557289
+    ],
+    "numDrills": 3,
+    "lastTime": 1606298024
+  },
+  "'to sit'-[de.verb]-'sitzen'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606297277
+  },
+  "'to pull/move'-[de.verb]-'ziehen'": {
+    "priorParams": [
+      1.3942870596617443,
+      0.9999999999999991,
+      563.7289642426202
+    ],
+    "numDrills": 4,
+    "lastTime": 1606297958
+  },
+  "'to shine, to seem/appear'-[de.verb]-'scheinen'": {
+    "priorParams": [
+      1.0668127639384792,
+      0.9999999999999987,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297940
+  },
+  "'to fall'-[de.verb]-'fallen'": {
+    "priorParams": [
+      0.8460553826137982,
+      0.9999999999999938,
+      919.5615511557289
+    ],
+    "numDrills": 3,
+    "lastTime": 1606298011
+  },
+  "'to belong'-[de.verb]-'geh\u00f6ren'": {
+    "priorParams": [
+      0.7971190172955185,
+      0.9999999999999972,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606298009
+  },
+  "'to originate/develop, to arise'-[de.verb]-'entstehen'": {
+    "priorParams": [
+      1.675199402173821,
+      2.0217184222178775,
+      300
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297999
+  },
+  "'to receive'-[de.verb]-'erhalten'": {
+    "priorParams": [
+      1.5188223936664422,
+      2.02854027176584,
+      381.46209522228656
+    ],
+    "numDrills": 4,
+    "lastTime": 1606298090
+  },
+  "'to meet'-[de.verb]-'treffen'": {
+    "priorParams": [
+      0.7688446728894124,
+      1.0000000000000113,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297918
+  },
+  "'to search'-[de.verb]-'suchen'": {
+    "priorParams": [
+      0.7405703284832876,
+      1.0000000000000016,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297955
+  },
+  "'to lay (sth. down)'-[de.verb]-'legen'": {
+    "priorParams": [
+      0.7307830554196311,
+      0.9999999999999979,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297937
+  },
+  "'to introduce, to imagine'-[de.verb]-'vorstellen'": {
+    "priorParams": [
+      3.5941012196625857,
+      2.996929121987313,
+      124.44912297915948
+    ],
+    "numDrills": 4,
+    "lastTime": 1606298059
+  },
+  "'to deal/trade'-[de.verb]-'handeln'": {
+    "priorParams": [
+      0.7634072989651596,
+      1.0000000000000087,
+      919.5615511557289
+    ],
+    "numDrills": 2,
+    "lastTime": 1606297983
+  },
+  "'to achieve/reach'-[de.verb]-'erreichen'": {
+    "priorParams": [
+      1.4381521055728654,
+      2.067664795169701,
+      381.46209522228656
+    ],
+    "numDrills": 4,
+    "lastTime": 1606298021
+  },
+  "'to carry, to wear'-[de.verb]-'tragen'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606298181
+  },
+  "'to manage, to create'-[de.verb]-'schaffen'": {
+    "priorParams": [
+      1,
+      1,
+      60
+    ],
+    "numDrills": 0,
+    "lastTime": 1606298190
+  },
+  "'to read'-[de.verb]-'lesen'": {
+    "priorParams": [
+      1,
+      1,
+      18000
+    ],
+    "numDrills": 0,
+    "lastTime": 1606298207
+  },
+  "'to lose'-[de.verb]-'verlieren'": {
+    "priorParams": [
+      1,
+      1,
+      60
+    ],
+    "numDrills": 0,
+    "lastTime": 1606298197
+  },
+  "'to portray/depict'-[de.verb]-'darstellen'": {
+    "priorParams": [
+      1,
+      1,
+      300
+    ],
+    "numDrills": 0,
+    "lastTime": 1606298204
+  },
+  "'to admit/recognise'-[de.verb]-'erkennen'": {
+    "priorParams": [
+      1,
+      1,
+      60
+    ],
+    "numDrills": 0,
+    "lastTime": 1606298213
+  },
+  "'to develop'-[de.verb]-'entwickeln'": {},
+  "'to talk'-[de.verb]-'reden'": {},
+  "'to look/appear'-[de.verb]-'aussehen'": {},
+  "'to appear'-[de.verb]-'erscheinen'": {},
+  "'to form, to educate'-[de.verb]-'bilden'": {},
+  "'to begin'-[de.verb]-'anfangen'": {},
+  "'to expect'-[de.verb]-'erwarten'": {},
+  "'to live/reside'-[de.verb]-'wohnen'": {},
+  "'to concern/affect'-[de.verb]-'betreffen'": {},
+  "'to wait'-[de.verb]-'warten'": {},
+  "'to pass (time)'-[de.verb]-'vergehen'": {},
+  "'to help'-[de.verb]-'helfen'": {},
+  "'to win/gain'-[de.verb]-'gewinnen'": {},
+  "'to close'-[de.verb]-'schlie\u00dfen'": {},
+  "'to feel'-[de.verb]-'f\u00fchlen'": {},
+  "'to offer'-[de.verb]-'bieten'": {},
+  "'to interest'-[de.verb]-'interessieren'": {},
+  "'to remind'-[de.verb]-'erinnern'": {},
+  "'to result in,geben'-[de.verb]-'ergeben'": {},
+  "'to offer,bieten'-[de.verb]-'anbieten'": {},
+  "'to study'-[de.verb]-'studieren'": {},
+  "'to connect/link,binden'-[de.verb]-'verbinden'": {},
+  "'to watch/look at,sehen'-[de.verb]-'ansehen'": {},
+  "'to lack'-[de.verb]-'fehlen'": {},
+  "'to mean/to represent,deuten'-[de.verb]-'bedeuten'": {},
+  "'to compare,gleichen,strong'-[de.verb]-'vergleichen'": {},
+  "'to would like'-[de.verb]-'m\u00f6chten'": {}
+}

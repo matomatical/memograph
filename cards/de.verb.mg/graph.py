@@ -98,13 +98,13 @@ fühlen        -- to feel
 bieten        -- to offer
 interessieren -- to interest
 erinnern      -- to remind
-ergeben       -- to result in,geben
-anbieten      -- to offer,bieten
+ergeben       -- to result in
+anbieten      -- to offer
 studieren     -- to study
-verbinden     -- to connect/link,binden
-ansehen       -- to watch/look at,sehen
+verbinden     -- to connect/link
+ansehen       -- to watch/look at
 fehlen        -- to lack
-bedeuten      -- to mean/to represent,deuten
-vergleichen   -- to compare,gleichen,strong
+bedeuten      -- to mean/to represent
+vergleichen   -- to compare
 möchten       -- to would like                          # modal, K2P of mögen
 """
