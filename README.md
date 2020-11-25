@@ -89,7 +89,14 @@ This format is not considered stable.
 Eventually, long-term project goals:
 * Install as executable so that we can just run it with `mg <deck>`.
 * Separate deck progress from repo so that users don't have to delete them.
+* Separate `ptdb` (the plain-text database) into another project.
+* Separate `topk` (the efficient heap-based top-k algorithm) into another
+  project.
 * Reimplement `ebisu` (for fun and either vectorisation or no numpy).
 * Perhaps switch to a domain-specific language for specifying the graphs.
-* Switch to a richer, 
+* Switch to a richer, more structured memory model. I have in mind something
+  like a mix between autodiff and belief nets for diagnosing issues. The
+  result should ideally allow generating unlimited 'quiz' questions driven
+  by a finite memory model. The idea still needs some work.
+
 
