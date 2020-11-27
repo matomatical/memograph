@@ -1,7 +1,10 @@
 # memograph
 
 A utility for drilling flashcards based on an online Bayesian
-spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu))
+spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu)).
+
+For example decks and my memory models, see
+[memograph-decks](https://github.com/matomatical/memograph-decks) repo.
 
 ## Installation
 
@@ -9,7 +12,8 @@ spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu))
 * Clone this repository and cd into this dirctory.
 * Install requirements `ebisu` and `prompt_toolkit`,
   e.g. with `pip install -r requirements.txt`.
-* Create some .mg directories (or copy mine from another repo, forthcoming).
+* Create some .mg directories (or see 
+  [memograph-decks](https://github.com/matomatical/memograph-decks)).
 
 ## Usage
 
@@ -93,7 +97,6 @@ This format is not considered stable.
 
 Eventually, long-term project goals:
 * Install as executable so that we can just run it with `mg <deck>`.
-* Add example decks to repo
 * Separate `ptdb` (the plain-text database) into another project.
 * Separate `topk` (the efficient heap-based top-k algorithm) into another
   project.
