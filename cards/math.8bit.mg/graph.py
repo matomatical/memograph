@@ -13,11 +13,10 @@ class BaseNode:
         self.numstr = numstr
         self.basech = {2: '2', 10: 'a'}[base]
     def __eq__(self, other):
-        if '_' in other:
-            other = other[:other.index('_')]
+        other = other.split('_')[0]
         return self.numstr.lstrip('0') == other.lstrip('0')
     def __str__(self):
-        return f"${self.numstr}_{self.basech}$"
+        return f"{self.numstr}_{self.basech}"
     def __repr__(self):
         return str(self)
 

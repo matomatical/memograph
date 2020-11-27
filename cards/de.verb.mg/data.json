@@ -253,12 +253,12 @@
   },
   "'to show'-[de.verb]-'zeigen'": {
     "priorParams": [
-      1.2872835059764514,
-      2.3449501058252347,
+      1.6154181411358686,
+      2.3449501058252373,
       106383.16184769961
     ],
-    "numDrills": 10,
-    "lastTime": 1606475828
+    "numDrills": 11,
+    "lastTime": 1606510736
   },
   "'to lead'-[de.verb]-'f\u00fchren'": {
     "priorParams": [
@@ -415,12 +415,12 @@
   },
   "'to set/place'-[de.verb]-'setzen'": {
     "priorParams": [
-      1.184089934450149,
-      1.3165500093735036,
+      1.51588116331521,
+      1.3165500093734956,
       106383.16184769961
     ],
-    "numDrills": 6,
-    "lastTime": 1606475433
+    "numDrills": 7,
+    "lastTime": 1606510730
   },
   "'to get/receive'-[de.verb]-'bekommen'": {
     "priorParams": [
@@ -442,12 +442,12 @@
   },
   "'to tell'-[de.verb]-'erz\u00e4hlen'": {
     "priorParams": [
-      2.0466498775989197,
-      3.1706860243939583,
+      2.7208022809712755,
+      3.170686024393963,
       49763.22836228254
     ],
-    "numDrills": 13,
-    "lastTime": 1606477086
+    "numDrills": 14,
+    "lastTime": 1606510634
   },
   "'to try/attempt'-[de.verb]-'versuchen'": {
     "priorParams": [
@@ -541,21 +541,21 @@
   },
   "'to originate/develop, to arise'-[de.verb]-'entstehen'": {
     "priorParams": [
-      1.7118882547681604,
-      3.1629465532956367,
-      56613.994629827444
+      4.825844314292144,
+      3.8543572080376376,
+      23485.206600096233
     ],
-    "numDrills": 10,
-    "lastTime": 1606477065
+    "numDrills": 11,
+    "lastTime": 1606510615
   },
   "'to receive'-[de.verb]-'erhalten'": {
     "priorParams": [
-      2.120230963649533,
-      2.135603678577512,
+      1.9789321383737575,
+      3.1953299329082867,
       71986.97670132418
     ],
-    "numDrills": 7,
-    "lastTime": 1606475817
+    "numDrills": 8,
+    "lastTime": 1606510713
   },
   "'to meet'-[de.verb]-'treffen'": {
     "priorParams": [
@@ -586,12 +586,12 @@
   },
   "'to introduce, to imagine'-[de.verb]-'vorstellen'": {
     "priorParams": [
-      5.376178303275992,
-      4.025706923347396,
-      8639.724679839272
+      2.417635491490529,
+      4.260896850866398,
+      26482.52876050478
     ],
-    "numDrills": 9,
-    "lastTime": 1606476946
+    "numDrills": 10,
+    "lastTime": 1606510571
   },
   "'to deal/trade'-[de.verb]-'handeln'": {
     "priorParams": [
@@ -604,12 +604,12 @@
   },
   "'to achieve/reach'-[de.verb]-'erreichen'": {
     "priorParams": [
-      1.4650429274360999,
-      3.2269039329915605,
+      1.8987142191466122,
+      3.226903932991546,
       81174.38408511993
     ],
-    "numDrills": 8,
-    "lastTime": 1606475421
+    "numDrills": 9,
+    "lastTime": 1606510624
   },
   "'to carry, to wear'-[de.verb]-'tragen'": {
     "priorParams": [
@@ -622,12 +622,12 @@
   },
   "'to manage, to create'-[de.verb]-'schaffen'": {
     "priorParams": [
-      3.1919760075546466,
-      2.841287660915334,
+      4.158331156513413,
+      2.841287660915327,
       34706.70181261749
     ],
-    "numDrills": 9,
-    "lastTime": 1606477131
+    "numDrills": 10,
+    "lastTime": 1606510670
   },
   "'to read'-[de.verb]-'lesen'": {
     "priorParams": [
@@ -658,21 +658,21 @@
   },
   "'to admit/recognise'-[de.verb]-'erkennen'": {
     "priorParams": [
-      1.4000977872697342,
-      1.00609885545995,
+      1.7710542922176122,
+      1.0060988554599475,
       94342.59686298472
     ],
-    "numDrills": 6,
-    "lastTime": 1606475808
+    "numDrills": 7,
+    "lastTime": 1606510805
   },
   "'to develop'-[de.verb]-'entwickeln'": {
     "priorParams": [
-      2.905610923293529,
-      1.9250400319094318,
-      3693.9774977764237
+      1.1842387890590467,
+      1.9998782637697414,
+      30778.558567747583
     ],
-    "numDrills": 6,
-    "lastTime": 1606477128
+    "numDrills": 7,
+    "lastTime": 1606510567
   },
   "'to talk'-[de.verb]-'reden'": {
     "priorParams": [
@@ -685,30 +685,30 @@
   },
   "'to look/appear'-[de.verb]-'aussehen'": {
     "priorParams": [
-      1.1126992947895598,
-      1.2949235689346288,
-      11322.79892596549
+      1.2664696403225044,
+      1.307309430971473,
+      34706.70181261749
     ],
-    "numDrills": 5,
-    "lastTime": 1606477140
+    "numDrills": 6,
+    "lastTime": 1606510589
   },
   "'to appear'-[de.verb]-'erscheinen'": {
     "priorParams": [
-      2.457066471129119,
-      1.9104297395841225,
-      563.7289642426202
+      2.4003845996178854,
+      1.9414567103224765,
+      12767.882067729606
     ],
-    "numDrills": 9,
-    "lastTime": 1606477124
+    "numDrills": 10,
+    "lastTime": 1606510586
   },
   "'to form, to educate'-[de.verb]-'bilden'": {
     "priorParams": [
-      1.395022019492847,
-      0.9999999999997728,
+      1.7664237104054676,
+      0.9999999999997742,
       94342.59686298473
     ],
-    "numDrills": 3,
-    "lastTime": 1606475758
+    "numDrills": 4,
+    "lastTime": 1606510797
   },
   "'to begin'-[de.verb]-'anfangen'": {
     "priorParams": [
@@ -721,12 +721,12 @@
   },
   "'to expect'-[de.verb]-'erwarten'": {
     "priorParams": [
-      1.1528176465290514,
-      2.0632217318522486,
+      1.5532489081489682,
+      2.063221731852248,
       83664.7964608707
     ],
-    "numDrills": 10,
-    "lastTime": 1606477135
+    "numDrills": 11,
+    "lastTime": 1606510637
   },
   "'to live/reside'-[de.verb]-'wohnen'": {
     "priorParams": [
@@ -739,12 +739,12 @@
   },
   "'to concern/affect'-[de.verb]-'betreffen'": {
     "priorParams": [
-      1.3944284382065044,
-      1.0000000000002647,
+      1.7658195294532955,
+      1.0000000000002642,
       94342.59686298473
     ],
-    "numDrills": 3,
-    "lastTime": 1606475771
+    "numDrills": 4,
+    "lastTime": 1606510809
   },
   "'to wait'-[de.verb]-'warten'": {
     "priorParams": [
@@ -775,143 +775,143 @@
   },
   "'to win/gain'-[de.verb]-'gewinnen'": {
     "priorParams": [
-      0.7875417539997687,
-      1.0000000000010674,
-      153892.79283873792
-    ],
-    "numDrills": 3,
-    "lastTime": 1606475342
-  },
-  "'to close'-[de.verb]-'schlie\u00dfen'": {
-    "priorParams": [
-      0.7880810904973379,
-      1.0000000000003773,
-      153892.79283873792
-    ],
-    "numDrills": 3,
-    "lastTime": 1606475392
-  },
-  "'to feel'-[de.verb]-'f\u00fchlen'": {
-    "priorParams": [
-      0.7881525688308327,
-      1.0000000000031797,
+      1.0176045096812534,
+      1.000000000001067,
       153892.79283873792
     ],
     "numDrills": 4,
-    "lastTime": 1606475424
+    "lastTime": 1606510747
+  },
+  "'to close'-[de.verb]-'schlie\u00dfen'": {
+    "priorParams": [
+      1.0181308501186237,
+      1.0000000000003775,
+      153892.79283873792
+    ],
+    "numDrills": 4,
+    "lastTime": 1606510795
+  },
+  "'to feel'-[de.verb]-'f\u00fchlen'": {
+    "priorParams": [
+      1.0180268816394238,
+      1.0000000000031786,
+      153892.79283873792
+    ],
+    "numDrills": 5,
+    "lastTime": 1606510800
   },
   "'to offer'-[de.verb]-'bieten'": {
     "priorParams": [
-      1.129204739754155,
-      1.9336421328928721,
-      1727.9449359678542
+      2.162688722352493,
+      1.9703044162240206,
+      14397.395340264837
     ],
-    "numDrills": 13,
-    "lastTime": 1606477117
+    "numDrills": 14,
+    "lastTime": 1606510563
   },
   "'to interest'-[de.verb]-'interessieren'": {
     "priorParams": [
-      0.7875742441491567,
-      0.9999999999996007,
+      1.0177604624025356,
+      0.9999999999995993,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475339
+    "numDrills": 4,
+    "lastTime": 1606510763
   },
   "'to remind'-[de.verb]-'erinnern'": {
     "priorParams": [
-      1.1856957219776505,
-      1.833809305169725,
+      1.60853784311453,
+      1.833809305169723,
       83664.7964608707
     ],
-    "numDrills": 7,
-    "lastTime": 1606475251
+    "numDrills": 8,
+    "lastTime": 1606510628
   },
   "'to result in,geben'-[de.verb]-'ergeben'": {},
   "'to offer,bieten'-[de.verb]-'anbieten'": {},
   "'to study'-[de.verb]-'studieren'": {
     "priorParams": [
-      0.7871128840119979,
-      0.9999999999995782,
+      1.0170781692419903,
+      0.9999999999995812,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475354
+    "numDrills": 4,
+    "lastTime": 1606510744
   },
   "'to connect/link,binden'-[de.verb]-'verbinden'": {},
   "'to watch/look at,sehen'-[de.verb]-'ansehen'": {},
   "'to lack'-[de.verb]-'fehlen'": {
     "priorParams": [
-      0.7870738958294723,
-      0.9999999999973692,
+      1.01722112590225,
+      0.9999999999973654,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475335
+    "numDrills": 4,
+    "lastTime": 1606510753
   },
   "'to mean/to represent,deuten'-[de.verb]-'bedeuten'": {},
   "'to compare,gleichen,strong'-[de.verb]-'vergleichen'": {},
   "'to would like'-[de.verb]-'m\u00f6chten'": {
     "priorParams": [
-      0.7868204726598846,
-      1.000000000002357,
+      1.0169742007627656,
+      1.0000000000023566,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475331
+    "numDrills": 4,
+    "lastTime": 1606510750
   },
   "'to result in'-[de.verb]-'ergeben'": {
     "priorParams": [
-      0.7873858012756076,
-      0.999999999999134,
+      1.0176694899804868,
+      0.9999999999991357,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475352
+    "numDrills": 4,
+    "lastTime": 1606510791
   },
   "'to offer'-[de.verb]-'anbieten'": {
     "priorParams": [
-      1.342056654543247,
-      0.999999999999988,
-      1727.9449359678542
+      0.9158533539071367,
+      1.0000000000000004,
+      39136.17813058284
     ],
-    "numDrills": 7,
-    "lastTime": 1606477068
+    "numDrills": 8,
+    "lastTime": 1606510592
   },
   "'to connect/link'-[de.verb]-'verbinden'": {
     "priorParams": [
-      0.7868919509889595,
-      1.0000000000001341,
+      1.017026185001536,
+      1.0000000000001286,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475299
+    "numDrills": 4,
+    "lastTime": 1606510715
   },
   "'to watch/look at'-[de.verb]-'ansehen'": {
     "priorParams": [
-      0.7869504332617088,
-      1.0000000000021299,
+      1.0172081298461877,
+      1.0000000000021307,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475325
+    "numDrills": 4,
+    "lastTime": 1606510760
   },
   "'to mean/to represent'-[de.verb]-'bedeuten'": {
     "priorParams": [
-      0.7863981007002894,
-      0.9999999999989357,
+      1.0168312440974598,
+      0.9999999999989359,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475261
+    "numDrills": 4,
+    "lastTime": 1606510723
   },
   "'to compare'-[de.verb]-'vergleichen'": {
     "priorParams": [
-      0.7863461164629741,
-      1.0000000000028295,
+      1.0167272756193484,
+      1.0000000000028304,
       153892.79283873792
     ],
-    "numDrills": 3,
-    "lastTime": 1606475265
+    "numDrills": 4,
+    "lastTime": 1606510719
   }
 }

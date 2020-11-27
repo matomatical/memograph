@@ -70,21 +70,19 @@ def graph():
 #              ^ optional 'topic' (can leave as "")
 ```
 
-
 This format is not considered stable.
 
 ## TODO list
 
-* Switch to `prompt_toolkit` for the UI/response entry, including colours,
-  and better keyboard controls.
+* Implement 'Bayesian deck status' command to show a snapshot of memory for
+  a whole deck (maybe including my own implementation of `termplotlib`).
+* Improve keyboard controls when an option is needed
 * Add multimedia extensions:
   * Sound effects
   * Text-to-speech e.g. for language cards
   * Mathematics equations (in the terminal?!)
   * Support image-based flashcards.
-* Find a nice way to allow custom assessment.
-* Implement 'Bayesian deck status' command to show a snapshot of memory for
-  a whole deck (maybe including my own implementation of `termplotlib`).
+* Find a nice way to allow custom assessment (autocomplete?)
 
 Eventually, long-term project goals:
 * Install as executable so that we can just run it with `mg <deck>`.
