@@ -9,12 +9,11 @@ spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu))
 * Clone this repository and cd into this dirctory.
 * Install requirements `ebisu` and `prompt_toolkit`,
   e.g. with `pip install -r requirements.txt`.
-* Delete all deck progress files (they contain *my* memory model parameters),
-  e.g. with `rm cards/*/data.json`.
+* Create some .mg directories (or copy mine from another repo, forthcoming).
 
 ## Usage
 
-Call the program with `python3 -m mg <options>`.
+Call the program with `python3 -m mg <options>` (or use an alias `mg`).
 
 (Apologies to `mg(1)` (the 'emacs-like text editor' on unix), but I like the
 name too much, and I don't see why you deserve it more than I.)
@@ -70,6 +69,14 @@ def graph():
 #              ^ optional 'topic' (can leave as "")
 ```
 
+To turn this into a deck, name it something like `de.num.mg/graph.py`.
+The deck will be named `de.num.mg`, you can then drill it using the
+example command:
+
+```
+% mg de.num
+```
+
 This format is not considered stable.
 
 ## TODO list
@@ -86,7 +93,7 @@ This format is not considered stable.
 
 Eventually, long-term project goals:
 * Install as executable so that we can just run it with `mg <deck>`.
-* Separate deck progress from repo so that users don't have to delete them.
+* Add example decks to repo
 * Separate `ptdb` (the plain-text database) into another project.
 * Separate `topk` (the efficient heap-based top-k algorithm) into another
   project.
@@ -96,5 +103,4 @@ Eventually, long-term project goals:
   like a mix between autodiff and belief nets for diagnosing issues. The
   result should ideally allow generating unlimited 'quiz' questions driven
   by a finite memory model. The idea still needs some work.
-
 
