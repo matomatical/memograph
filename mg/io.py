@@ -2,7 +2,7 @@ import re
 import sys
 
 from prompt_toolkit import prompt as _prompt, print_formatted_text
-from prompt_toolkit.formatted_text import HTML
+from prompt_toolkit.formatted_text import HTML, to_formatted_text
 
 _print = print
 _input = input
