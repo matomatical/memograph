@@ -9,11 +9,11 @@ For example decks and my memory models, see
 ## Installation
 
 * Install Python 3.7 or higher.
-* Clone this repository and cd into this dirctory.
+* Clone this repository.
 * Install requirements `ebisu` and `prompt_toolkit`,
   e.g. with `pip install -r requirements.txt`.
-* Create some .mg directories (or see 
-  [memograph-decks](https://github.com/matomatical/memograph-decks)).
+* Create some .mg directories
+  (or see [memograph-decks](https://github.com/matomatical/memograph-decks)).
 
 ## Usage
 
