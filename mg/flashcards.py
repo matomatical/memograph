@@ -1,3 +1,4 @@
+import re
 import time
 import runpy
 import itertools
@@ -53,6 +54,9 @@ class Deck:
         for data in self.dbs:
             data.save()
 
+PARENS = re.compile(r"\s*\([^)]*\)")
+def simplify(string):
+    return PARENS.sub("", string)
 
 class Card:
     """
@@ -117,6 +121,9 @@ class Card:
     def link(self):
         """the link itself (note: same link returned upon flip)"""
         return self.l
+
+    def grade(self, guess):
+        return simplify(self.back()) == simplify(guess)
     
     def _current_time(_self):
         return int(time.time())
@@ -136,7 +143,9 @@ class Link(collections.namedtuple("Link", ["t", "u", "v"])):
     of a flashcard. The link has a topic (t) and two nodes (u and v).
     """
     def __str__(self):
-        return f"{self.u!r}-[{self.t}]-{self.v!r}"
+        u = simplify(str(self.u))
+        v = simplify(str(self.v))
+        return f"{u}-[{self.t}]-{v}"
     def __repr__(self):
         return f"Link(t={self.t!r}, u={self.u!r}, v={self.v!r})"
 

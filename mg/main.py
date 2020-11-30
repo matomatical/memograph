@@ -29,12 +29,13 @@ def main():
 
 
 def run_status(deck, options):
-    print("probability of recall histogram:")
-    probs = [c.predict(exact=True) for c in deck.draw()]
-    print_hist(probs, lo=0, hi=1, width=20, height=56, labelformat="4.0%")
     n_seen  = len(deck.draw())
     n_new   = len(deck.draw_new())
     n_total = n_seen + n_new
+    if n_seen:
+        print("probability of recall histogram:")
+        probs = [c.predict(exact=True) for c in deck.draw()]
+        print_hist(probs, lo=0, hi=1, width=20, height=56, labelformat="4.0%")
     print(
         f"{n_seen} cards seen ({n_seen/n_total:.0%}),",
         f"{n_new} cards unseen ({n_new/n_total:.0%})"
@@ -64,11 +65,11 @@ def run_learn(deck, options):
         print("prompt:", card.face())
         input("return:")
         print("answer:", card.back())
-        instruction = "easy (g+↵) | medium (↵) | hard (p+↵)"
+        instruction = "easy (g+↵) | medium (↵) | hard (h+↵)"
         rating = input("rating:", r=instructions)
-        if rating == "o":
+        if rating == "g":
             card.initialise([1, 1,  5*60*60])
-        elif rating == "p":
+        elif rating == "h":
             card.initialise([1, 1,     1*60])
         else:
             card.initialise([1, 1,     5*60])
@@ -83,7 +84,7 @@ def run_drill(deck, options):
     for card in hand:
         print("prompt:", card.face())
         guess = input("recall:")
-        if guess == card.back():
+        if card.grade(guess):
             print(f"answer: <b><green>{card.back()}</green></b>")
             card.update(True)
         else:
@@ -91,6 +92,7 @@ def run_drill(deck, options):
             instructions = "forgot (↵) | got it (g+↵) | skip (s+↵)"
             commit = input("commit:", r=instructions)
             if commit == "g":
+                print("<b><green>got it!</green></b>")
                 card.update(True)
             elif commit == "s":
                 card.review()
