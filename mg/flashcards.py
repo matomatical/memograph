@@ -13,19 +13,22 @@ class Deck:
     A collection of flashcards, from which one can draw unseen or at-risk
     cards for review
     """
-    def __init__(self, graph_path, data_path, reverse):
-        # load the knowledge graph's links and their memory parameters
-        graph = runpy.run_path(graph_path)['graph']()
-        self.data = ptdb.Database(data_path)
-        # wrap each link in a flashcard
+    def __init__(self, graph_specs, reverse):
         self.deck = []
-        for link in graph:
-            link = Link(*link)
-            key = str(link)
-            card = Card(link, self.data[key])
-            if reverse:
-                card.flip()
-            self.deck.append(card)
+        self.dbs = []
+        for graph_path, data_path in graph_specs:
+            # load the knowledge graph's links and their memory parameters
+            graph = runpy.run_path(graph_path)['graph']()
+            data = ptdb.Database(data_path)
+            # wrap each link in a flashcard
+            for link in graph:
+                link = Link(*link)
+                key = str(link)
+                card = Card(link, data[key])
+                if reverse:
+                    card.flip()
+                self.deck.append(card)
+            self.dbs.append(data)
 
     def draw_new(self, num_cards=None):
         """
@@ -47,7 +50,8 @@ class Deck:
         """
         Commit changes to the database
         """
-        self.data.save()
+        for data in self.dbs:
+            data.save()
 
 
 class Card:

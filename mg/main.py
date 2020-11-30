@@ -12,24 +12,33 @@ def main():
     print("<b>**</b> welcome <b>**</b>")
 
     # load deck
-    deck = Deck(*options.graph, options.reverse)
+    deck = Deck(options.graphs, options.reverse)
 
     # run program
-    if options.status:
-        run_status(deck, options)
-    elif options.preview:
-        run_preview(deck, options)
-    elif options.learn:
-        run_learn(deck, options)
-    else:
-        run_drill(deck, options)
+    try:
+        if options.status:
+            run_status(deck, options)
+        elif options.preview:
+            run_preview(deck, options)
+        elif options.learn:
+            run_learn(deck, options)
+        else:
+            run_drill(deck, options)
+    except KeyboardInterrupt:
+        print("\nbye! (not saving.)")
 
 
 def run_status(deck, options):
     print("probability of recall histogram:")
     probs = [c.predict(exact=True) for c in deck.draw()]
-    print_hist(probs, lo=0, hi=1, width=20, height=60, labelformat="4.0%")
-
+    print_hist(probs, lo=0, hi=1, width=20, height=56, labelformat="4.0%")
+    n_seen  = len(deck.draw())
+    n_new   = len(deck.draw_new())
+    n_total = n_seen + n_new
+    print(
+        f"{n_seen} cards seen ({n_seen/n_total:.0%}),",
+        f"{n_new} cards unseen ({n_new/n_total:.0%})"
+    )
 
 def run_preview(deck, options):
     print("cards (probability of recall):")
@@ -51,11 +60,12 @@ def run_learn(deck, options):
     hand = deck.draw_new(options.num_cards)
     random.shuffle(hand)
     for card in hand:
-        print("<b>**</b> <blue>NEW CARD</blue> <b>**</b>")
+        print("<b>**</b> new card <b>**</b>")
         print("prompt:", card.face())
         input("return:")
         print("answer:", card.back())
-        rating = input("rating:", r="easy (o+↵) | medium (↵) | hard (p+↵)")
+        instruction = "easy (g+↵) | medium (↵) | hard (p+↵)"
+        rating = input("rating:", r=instructions)
         if rating == "o":
             card.initialise([1, 1,  5*60*60])
         elif rating == "p":
@@ -78,10 +88,11 @@ def run_drill(deck, options):
             card.update(True)
         else:
             print(f"answer: <b><red>{card.back()}</red></b>")
-            commit = input("commit:", r="forgot (↵) | got it (o+↵) | skip (p+↵)")
-            if commit == "o":
+            instructions = "forgot (↵) | got it (g+↵) | skip (s+↵)"
+            commit = input("commit:", r=instructions)
+            if commit == "g":
                 card.update(True)
-            elif commit == "p":
+            elif commit == "s":
                 card.review()
             else:
                 card.update(False)

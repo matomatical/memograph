@@ -25,12 +25,13 @@ name too much, and I don't see why you deserve it more than I.)
 From there, see the help:
 
 ```
-usage: mg [-h] [-v] [-n N] [-l] [-r] [-t TOPIC [TOPIC ...]] [-s] [-p] GRAPH
+usage: mg [-h] [-v] [-n N] [-l] [-r] [-t TOPIC [TOPIC ...]] [-s] [-p]
+          GRAPH [GRAPH ...]
 
 drill some edges of a knowledge graph with Bayesian scheduling.
 
 positional arguments:
-  GRAPH                 path to graph module, a .mg directory (see below)
+  GRAPH                 path to a graph module, a .mg directory (see below)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -40,9 +41,8 @@ optional arguments:
   -r, --reverse         reverse card sides for session
   -t TOPIC [TOPIC ...], --topics TOPIC [TOPIC ...]
                         resctrict card topics for session (not implemented)
-  -s, --status          show Bayesian status for decks (not implemented)
+  -s, --status          show Bayesian status for decks
   -p, --preview         list cards in deck with recall probability
-
 ```
 
 ## Deck format

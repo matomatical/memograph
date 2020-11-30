@@ -6,7 +6,7 @@ from prompt_toolkit.formatted_text import HTML, to_formatted_text
 
 _print = print
 _input = input
-htmltag = re.compile(r"</?\w+>")
+htmltag = re.compile(r"</?[^>]+>")
 
 if sys.stdout.isatty():
     def print(*args, **kwargs):

@@ -31,10 +31,11 @@ def get_options():
     
     # positional arguments used for player package specifications:
     parser.add_argument(
-        'graph',
+        'graphs',
         metavar='GRAPH',
-        help="path to graph module, a .mg directory (see below)",
-        action=GraphSpecAction,
+        help="path to a graph module, a .mg directory (see below)",
+        action=GraphSpecsAction,
+        nargs="+",
     )
     
     # optional arguments used for configuration:
@@ -75,7 +76,7 @@ def get_options():
         '-s',
         '--status',
         action="store_true",
-        help="show Bayesian status for decks (not implemented)",
+        help="show Bayesian status for decks",
     )
     parser.add_argument(
         '-p',
@@ -89,7 +90,7 @@ def get_options():
     except FileNotFoundError as e:
         parser.error(e)
 
-class GraphSpecAction(argparse.Action):
+class GraphSpecsAction(argparse.Action):
     def _prep(self, path):
         if not os.path.isdir(path):
             if not path.endswith(".mg") and os.path.isdir(path+".mg"):
@@ -101,6 +102,6 @@ class GraphSpecAction(argparse.Action):
         if not os.path.lexists(graph_path):
             raise FileNotFoundError("missing graph file " + graph_path)
         return graph_path, data_path
-    def __call__(self, parser, namespace, value, option_string=None):
+    def __call__(self, parser, namespace, values, option_string=None):
         # save the result in the arguments namespace as a tuple
-        setattr(namespace, self.dest, self._prep(value))
+        setattr(namespace, self.dest, [self._prep(v) for v in values])
