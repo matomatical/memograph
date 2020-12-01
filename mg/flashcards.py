@@ -14,7 +14,7 @@ class Deck:
     A collection of flashcards, from which one can draw unseen or at-risk
     cards for review
     """
-    def __init__(self, graph_specs, reverse):
+    def __init__(self, graph_specs, reverse=False, topics=None):
         self.deck = []
         self.dbs = []
         for graph_path, data_path in graph_specs:
@@ -24,6 +24,9 @@ class Deck:
             # wrap each link in a flashcard
             for link in graph:
                 link = Link(*link)
+                if topics is not None:
+                    if not any(t in link.t for t in topics):
+                        continue
                 key = str(link)
                 card = Card(link, data[key])
                 if reverse:

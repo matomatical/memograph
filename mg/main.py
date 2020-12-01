@@ -12,7 +12,7 @@ def main():
     print("<b>**</b> welcome <b>**</b>")
 
     # load deck
-    deck = Deck(options.graphs, options.reverse)
+    deck = Deck(options.graphs, options.reverse, options.topics)
 
     # run program
     try:

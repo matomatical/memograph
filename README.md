@@ -40,7 +40,7 @@ optional arguments:
   -l, --learn           use new cards for session
   -r, --reverse         reverse card sides for session
   -t TOPIC [TOPIC ...], --topics TOPIC [TOPIC ...]
-                        resctrict card topics for session (not implemented)
+                        include cards whose topic contains these substrings
   -s, --status          show Bayesian status for decks
   -p, --preview         list cards in deck with recall probability
 ```

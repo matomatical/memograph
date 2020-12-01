@@ -70,7 +70,7 @@ def get_options():
         '--topics',
         metavar="TOPIC",
         nargs='+',
-        help=f"resctrict card topics for session (not implemented)",
+        help=f"include cards whose topic contains these substrings",
     )
     parser.add_argument(
         '-s',
