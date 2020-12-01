@@ -59,20 +59,23 @@ def run_preview(deck, options):
 def run_learn(deck, options):
     print("introduce some new cards...")
     hand = deck.draw_new(options.num_cards)
+    if not hand:
+        print("no new cards! try drilling some old ones.")
+        return
     random.shuffle(hand)
     for card in hand:
         print("<b>**</b> new card <b>**</b>")
         print("prompt:", card.face())
         input("return:")
         print("answer:", card.back())
-        instruction = "easy (g+↵) | medium (↵) | hard (h+↵)"
+        instructions = "easy (g+↵) | medium (↵) | hard (h+↵)"
         rating = input("rating:", r=instructions)
         if rating == "g":
-            card.initialise([1, 1,  5*60*60])
+            card.initialise([1, 1,  2*24*60*60])
         elif rating == "h":
-            card.initialise([1, 1,     1*60])
+            card.initialise([1, 1,        1*60])
         else:
-            card.initialise([1, 1,     5*60])
+            card.initialise([1, 1,     1*60*60])
     print("saving.")
     deck.save()
 
@@ -80,6 +83,9 @@ def run_learn(deck, options):
 def run_drill(deck, options):
     print("drill some old cards...")
     hand = deck.draw(options.num_cards)
+    if not hand:
+        print("no old cards! try learning some new ones.")
+        return
     random.shuffle(hand)
     for card in hand:
         print("prompt:", card.face())
