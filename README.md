@@ -92,7 +92,11 @@ This format is not considered stable.
   * Mathematics equations (in the terminal?!)
   * Support image-based flashcards.
 * Find a nice way to allow custom assessment (autocomplete?)
-* Switch away from `prompt_toolkit` (check: is that what slows startup?)
+* Switch away from `prompt_toolkit` (since my use case is much simpler)
+  * Check if this is what slows startup, or maybe numpy import for ebisu?
+  * Switch to standard readline for the input (sadly, lose rprompt...!?)
+  * Switch to simpler, home-built formatted printing functionality
+  * Try to reimplement right-aligned printing using '\r' and terminal width
 
 Eventually, long-term project goals:
 * Perhaps separate `ptdb` (the plain-text database) into another project.
