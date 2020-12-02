@@ -1,15 +1,11 @@
 import re
 import sys
-import readline
-
-from prompt_toolkit import prompt as ptk_prompt
-# from prompt_toolkit import print_formatted_text as ptk_print
-# from prompt_toolkit.formatted_text import HTML, to_formatted_text
-
-from mg.ansi import to_ansi_code, UnknownANSIKeywordException
+import readline # enable richer prompts
 
 std_print = print
 std_input = input
+
+from mg.ansi import to_ansi_code, UnknownANSIKeywordException
 
 
 # Configure this module using these globals (TODO: use a class, duh)
@@ -39,18 +35,21 @@ def print(*args, **kwargs):
         args = [to_ansi(arg) for arg in args]
         return std_print(*args, **kwargs)
     else:
-        args = [strip_ansi(arg) for arg in args]
+        args = [no_ansi(arg) for arg in args]
         return std_print(*args, **kwargs)
 
 def input(prompt, r=None):
-    if sys.stdin.isatty():
-        return ptk_prompt(prompt + " ", rprompt=r)
+    if r is not None:
+        print(r)
+    if GLOBAL_OUTPUT_ENABLED:
+        prompt = to_ansi(prompt)
     else:
-        if r is not None:
-            print(r)
-        return std_input(prompt + " ")
+        prompt = no_ansi(prompt)
+    return std_input(prompt + " ")
 
 
+
+# text format:
 
 formattag = re.compile(r"<([^><]+)>")
 def to_ansi(s):
@@ -74,8 +73,7 @@ def to_ansi_tag_match(match):
             # silently pass over the tag
             return match[0]
 
-
-def strip_ansi(s):
+def no_ansi(s):
     return formattag.sub(no_ansi_tag_match, str(s))
 
 def no_ansi_tag_match(match):
