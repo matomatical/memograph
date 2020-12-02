@@ -48,7 +48,19 @@ def input(prompt, r=None):
     return std_input(prompt + " ")
 
 
+"""
+FORMATTING TEXT
 
+The following functions help convert text with markup tags to text with (or
+without) ANSI escape codes.
+
+For example:
+
+>>> print(to_ansi("<red>Hello, world!<reset>"))
+\033[31mHello, world!\033[0m
+>>> print(no_ansi("<red>Hello, world!<reset>"))
+Hello, world!
+"""
 # text format:
 
 formattag = re.compile(r"<([^><]+)>")

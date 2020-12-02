@@ -95,8 +95,8 @@ This format is not considered stable.
 * There is a noticable delay when printing using `prompt_toolkit`. Since my
   use case is very simple, it should be possible to replace with pure python
   using readline and ANSI codes.
-  * Switch to standard readline for the input (forgo rprompt... for now!)
-  * Switch to simpler, home-built formatted printing functionality
+  * DONE Switch to standard readline for the input (forgo rprompt... for now!)
+  * DONE Switch to simpler, home-built formatted printing functionality
   * Try to reimplement right-aligned printing using '\r' and terminal width
 * There is a noticable delay to import ebisu, which pulls numpy.
   Consider reimplementing in pure python if possible (also this will be fun!)
