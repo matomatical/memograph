@@ -24,13 +24,13 @@ def main():
             run_learn(deck, options)
         else:
             run_drill(deck, options)
-    except KeyboardInterrupt:
+    except (EOFError, KeyboardInterrupt):
         print("\nbye! (not saving.)")
 
 
 def run_status(deck, options):
-    n_seen  = len(deck.draw())
-    n_new   = len(deck.draw_new())
+    n_seen  = deck.num_old()
+    n_new   = deck.num_new()
     n_total = n_seen + n_new
     if n_seen:
         print("probability of recall histogram:")

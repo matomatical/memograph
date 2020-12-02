@@ -16,6 +16,7 @@ class Deck:
     """
     def __init__(self, graph_specs, reverse=False, topics=None):
         self.deck = []
+        self.news = []
         self.dbs = []
         for graph_path, data_path in graph_specs:
             # load the knowledge graph's links and their memory parameters
@@ -31,24 +32,33 @@ class Deck:
                 card = Card(link, data[key])
                 if reverse:
                     card.flip()
-                self.deck.append(card)
+                if card.is_new():
+                    self.news.append(card)
+                else:
+                    self.deck.append(card)
             self.dbs.append(data)
+    
+    def num_new(self):
+        """get the number of cards that have not been seen upon load"""
+        return len(self.news)
+    
+    def num_old(self):
+        """get the number of cards that have been seen upon load"""
+        return len(self.deck)
 
     def draw_new(self, num_cards=None):
         """
         Draw the next num_cards cards from the unseen part of the deck
         """
-        new_deck = filter(Card.is_new, self.deck)
-        return list(itertools.islice(new_deck, num_cards))
+        return list(itertools.islice(self.news, num_cards))
 
     def draw(self, num_cards=None):
         """
         Draw the num_cards most at-risk cards from the deck
         """
-        old_deck = itertools.filterfalse(Card.is_new, self.deck)
         if num_cards is None:
-            return sorted(old_deck, key=Card.predict)
-        return topk.topk(old_deck, num_cards, key=Card.predict, reverse=True)
+            return sorted(self.deck, key=Card.predict)
+        return topk.topk(self.deck, num_cards, key=Card.predict, reverse=True)
 
     def save(self):
         """
