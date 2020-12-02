@@ -1,5 +1,5 @@
 from mg.io import print
-from mg.color import colormap_red_green as color
+from mg.color import colormap_red_green as color, to_hex
 
 def print_hist(data, lo=0, hi=1, width=50, height=22, labelformat="4.2f"):
     data = list(data)
@@ -17,10 +17,9 @@ def print_hist(data, lo=0, hi=1, width=50, height=22, labelformat="4.2f"):
         l3 = format(c, f">{C}d")
         bar = int(h) * "█" + _part(h - int(h))
         lob = "(" if i else "["
-        col = color(b2)
-        print(f"{lob}{l1}, {l2}] ({l3})", f"<style fg='{col}'>{bar}</style>")
+        col = to_hex(color(b2))
+        print(f"{lob}{l1}, {l2}] ({l3})", f"<{col}>{bar}<reset>")
 
 
 def _part(f):
-    i = int(9*f)
-    return [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"][i]
+    return [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"][int(9*f)]

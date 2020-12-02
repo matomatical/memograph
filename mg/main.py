@@ -2,14 +2,14 @@ import random
 
 from mg.io import print, input
 from mg.plot import print_hist
-from mg.color import colormap_red_green as color
+from mg.color import colormap_red_green as color, to_hex
 from mg.options import get_options
 from mg.flashcards import Deck, Card
 
 
 def main():
     options = get_options()
-    print("<b>**</b> welcome <b>**</b>")
+    print("<bold>**<reset> welcome <bold>**<reset>")
 
     # load deck
     deck = Deck(options.graphs, options.reverse, options.topics)
@@ -47,12 +47,12 @@ def run_preview(deck, options):
     for card in deck.draw():
         l = str(card)
         p = card.predict(exact=True)
-        c = color(p)
-        print(f"<b>{i:>4d}.</b> {l:62s} (<style fg='{c}'>{p:>6.1%}</style>)")
+        c = to_hex(color(p))
+        print(f"<bold>{i:>4d}.<reset> {l:62s} (<{c}>{p:>6.1%}<reset>)")
         i += 1
     for card in deck.draw_new():
         l = str(card)
-        print(f"<b>{i:>4d}.</b> {l:62s} (<grey>unseen</grey>)")
+        print(f"<bold>{i:>4d}.<reset> {l:62s} (<faint>unseen<reset>)")
         i += 1
 
 
@@ -65,7 +65,7 @@ def run_learn(deck, options):
         return
     random.shuffle(hand)
     for i, card in enumerate(hand, 1):
-        print(f"<b>**</b> learn {i}/{n} <b>**</b>")
+        print(f"<bold>**<reset> learn {i}/{n} <bold>**<reset>")
         print("prompt:", card.face())
         input("return:")
         print("answer:", card.back())
@@ -90,18 +90,18 @@ def run_drill(deck, options):
         return
     random.shuffle(hand)
     for i, card in enumerate(hand, 1):
-        print(f"<b>**</b> drill {i}/{n} <b>**</b>")
+        print(f"<bold>**<reset> drill {i}/{n} <bold>**<reset>")
         print("prompt:", card.face())
         guess = input("recall:")
         if card.grade(guess):
-            print(f"answer: <b><green>{card.back()}</green></b>")
+            print(f"answer: <bold><green>{card.back()}<reset>")
             card.update(True)
         else:
-            print(f"answer: <b><red>{card.back()}</red></b>")
+            print(f"answer: <bold><red>{card.back()}<reset>")
             instructions = "forgot (↵) | got it (g+↵) | skip (s+↵)"
             commit = input("commit:", r=instructions)
             if commit == "g":
-                print("<b><green>got it!</green></b>")
+                print("<bold><green>got it!<reset>")
                 card.update(True)
             elif commit == "s":
                 card.review()
