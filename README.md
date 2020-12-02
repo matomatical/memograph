@@ -10,8 +10,7 @@ For example decks and my memory models, see
 
 * Install Python 3.7 or higher.
 * Clone this repository.
-* Install requirements `ebisu` and `prompt_toolkit`,
-  e.g. with `pip install -r requirements.txt`.
+* Install requirement `ebisu` e.g. with `pip install -r requirements.txt`.
 * Create some .mg directories
   (or see [memograph-decks](https://github.com/matomatical/memograph-decks)).
 
@@ -92,12 +91,6 @@ This format is not considered stable.
   * Mathematics equations (in the terminal?!)
   * Support image-based flashcards.
 * Find a nice way to allow custom assessment (autocomplete?)
-* There is a noticable delay when printing using `prompt_toolkit`. Since my
-  use case is very simple, it should be possible to replace with pure python
-  using readline and ANSI codes.
-  * DONE Switch to standard readline for the input (forgo rprompt... for now!)
-  * DONE Switch to simpler, home-built formatted printing functionality
-  * Try to reimplement right-aligned printing using '\r' and terminal width
 * There is a noticable delay to import ebisu, which pulls numpy.
   Consider reimplementing in pure python if possible (also this will be fun!)
 
@@ -115,3 +108,10 @@ Eventually, long-term project goals:
   by a finite memory model (e.g. a context-free grammar).
   The idea still needs some work.
 
+Done:
+* There is a noticable delay when printing using `prompt_toolkit`. Since my
+  use case is very simple, it should be possible to replace with pure python
+  using readline and ANSI codes.
+  * Switch to standard readline for the input (forgo rprompt... for now!)
+  * Switch to simpler, home-built formatted printing functionality
+  * Reimplement right-aligned printing using '\r' and terminal width
