@@ -1,10 +1,10 @@
 import random
 
-from mg.flashcards import Deck, Card
-from mg.options import get_options
 from mg.io import print, input
 from mg.plot import print_hist
 from mg.color import colormap_red_green as color
+from mg.options import get_options
+from mg.flashcards import Deck, Card
 
 
 def main():
@@ -59,12 +59,13 @@ def run_preview(deck, options):
 def run_learn(deck, options):
     print("introduce some new cards...")
     hand = deck.draw_new(options.num_cards)
-    if not hand:
+    n = len(hand)
+    if n == 0:
         print("no new cards! try drilling some old ones.")
         return
     random.shuffle(hand)
-    for card in hand:
-        print("<b>**</b> new card <b>**</b>")
+    for i, card in enumerate(hand, 1):
+        print(f"<b>**</b> learn {i}/{n} <b>**</b>")
         print("prompt:", card.face())
         input("return:")
         print("answer:", card.back())
@@ -83,11 +84,13 @@ def run_learn(deck, options):
 def run_drill(deck, options):
     print("drill some old cards...")
     hand = deck.draw(options.num_cards)
-    if not hand:
+    n = len(hand)
+    if n == 0:
         print("no old cards! try learning some new ones.")
         return
     random.shuffle(hand)
-    for card in hand:
+    for i, card in enumerate(hand, 1):
+        print(f"<b>**</b> drill {i}/{n} <b>**</b>")
         print("prompt:", card.face())
         guess = input("recall:")
         if card.grade(guess):
