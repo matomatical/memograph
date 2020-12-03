@@ -65,7 +65,7 @@ Here is an example of a `graph.py`, which produces the names of the first
 ten German numbers:
 
 ```python
-D = ['null','ein','zwei','drei','vier','fünf','sechs','sieben','acht','neun']
+D = ['null','eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun']
 def graph():
     for i, n in enumerate(D):
         yield ("de.num", i, n)
