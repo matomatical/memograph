@@ -15,7 +15,7 @@ GRAPH_SPEC_HELP = """
   The .mg directory format is required to specify graphs for drilling.
   Such a directory should contain two files:
   * 'graph.py', defining a generator function 'graph()' which yields
-    (topic, node 1, node 2) triples.
+    (node 1, node 2, topic) triples (or (node 1, node 2) pairs).
   * 'data.json' (created if not present; overwritten by this script)
     to store learning progress.
 """

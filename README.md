@@ -11,6 +11,7 @@ For example decks and my memory models, see
 * Install Python 3.7 or higher.
 * Clone this repository.
 * Install requirement `ebisu` e.g. with `pip install -r requirements.txt`.
+* If using TTS, install `espeak`.
 * Create some .mg directories
   (or see [memograph-decks](https://github.com/matomatical/memograph-decks)).
 
@@ -56,7 +57,7 @@ From the help:
   The .mg directory format is required to specify graphs for drilling.
   Such a directory should contain two files:
   * 'graph.py', defining a generator function 'graph()' which yields
-    (topic, node 1, node 2) triples.
+    (node 1, node 2, topic) triples (or (node 1, node 2) pairs).
   * 'data.json' (created if not present; overwritten by this script)
     to store learning progress.
 ```
@@ -68,9 +69,13 @@ ten German numbers:
 D = ['null','ein','zwei','drei','vier','fünf','sechs','sieben','acht','neun']
 def graph():
     for i, n in enumerate(D):
-        yield ("de.num", i, n)
-#              ^ optional 'topic' (can leave as "")
+        yield (i, n, "de.num")
+#                    ^ optional 'topic'
 ```
+
+Richer behaviour such as TTS and custom answer-comparison functions are
+supported by replacing the primitive nodes with nodes imported from
+the `mg.graph` submodule.
 
 To turn this into a deck, name it something like `de.num.mg/graph.py`.
 The deck will be named `de.num.mg`, you can then drill it using the

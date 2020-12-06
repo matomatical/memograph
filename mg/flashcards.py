@@ -9,6 +9,8 @@ import ebisu
 from mg import ptdb
 from mg import topk
 
+from mg.graph import load_link
+
 class Deck:
     """
     A collection of flashcards, from which one can draw unseen or at-risk
@@ -23,13 +25,12 @@ class Deck:
             graph = runpy.run_path(graph_path)['graph']()
             data = ptdb.Database(data_path)
             # wrap each link in a flashcard
-            for link in graph:
-                link = Link(*link)
+            for uvt in graph:
+                link = load_link(*uvt)
                 if topics is not None:
                     if not any(t in link.t for t in topics):
                         continue
-                key = str(link)
-                card = Card(link, data[key])
+                card = Card(link, data[link.index()])
                 if reverse:
                     card.flip()
                 if card.is_new():
@@ -148,17 +149,4 @@ class Card:
         else:
             elapsed_time = self._current_time() - self.data['lastTime']
             return f"{card} [{elapsed_time}s ago]"
-
-
-class Link(collections.namedtuple("Link", ["t", "u", "v"])):
-    """
-    A link between two nodes in a knowlege graph, which forms the content
-    of a flashcard. The link has a topic (t) and two nodes (u and v).
-    """
-    def __str__(self):
-        u = simplify(str(self.u))
-        v = simplify(str(self.v))
-        return f"{u}-[{self.t}]-{v}"
-    def __repr__(self):
-        return f"Link(t={self.t!r}, u={self.u!r}, v={self.v!r})"
 
