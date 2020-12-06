@@ -1,6 +1,13 @@
+import re
 import collections
 
 from mg.color import is_hex, to_rgb
+
+ANSI_CODE = re.compile("\033\\[[^m]+m")
+
+def ansi_len(s):
+    return len(ANSI_CODE.sub("", s))
+
 
 def to_ansi_code(a):
     """

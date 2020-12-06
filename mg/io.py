@@ -8,20 +8,31 @@ std_print = print
 std_input = input
 
 
-def print(*args, **kwargs):
-    args = [to_ansi(arg) for arg in args]
-    return std_print(*args, **kwargs)
-
-
-def input(prompt, r=None):
-    prompt = to_ansi(prompt)
+def print(*args, r=None, sep=" ", **kwargs):
     if r is not None:
-        cols = os.get_terminal_size().columns
-        prompt = format(to_ansi(r), f">{cols}s") + '\r' + prompt
-    return std_input(prompt + " ")
+        l = sep.join(to_ansi(arg) for arg in args)
+        std_print(justify(l=l, r=to_ansi(r)), **kwargs)
+    else:
+        std_print(*[to_ansi(arg) for arg in args], **kwargs)
+
+
+def input(prompt, r=None, expected_width=1):
+    p = to_ansi(prompt)
+    if r is not None:
+        p = justify(l=p, r=to_ansi(r), padding=1+expected_width)
+    return std_input(p + " ")
     # TODO: Backspacing wipes rprompt, which is not redrawn
 
 
+def justify(l="", r="", padding=0):
+    llen = ansi_len(l)
+    rlen = ansi_len(r)
+    if GLOBAL_OUTPUT_ENABLED:
+        cols = os.get_terminal_size().columns
+        if cols >= llen + rlen + padding:
+            return "\r" + " "*(cols-rlen) + r + "\r" + l
+        return "\r" + " "*(cols-rlen) + r + "\n" + l
+    return r + "\n" + l
 
 # # # # # # # #
 # CONFIGURATION
@@ -60,11 +71,9 @@ config()
 # 
 
 
-from mg.ansi import to_ansi_code, UnknownANSIKeywordException
-
+from mg.ansi import to_ansi_code, UnknownANSIKeywordException, ansi_len
 
 TAG = re.compile(r"<([^><]+)>")
-
 
 def to_ansi(s):
     return TAG.sub(to_ansi_tag_match, str(s))

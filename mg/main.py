@@ -45,14 +45,12 @@ def run_preview(deck, options):
     print("cards (probability of recall):")
     i = 1
     for card in deck.draw():
-        l = str(card)
         p = card.predict(exact=True)
         c = to_hex(color(p))
-        print(f"<bold>{i:>4d}.<reset> {l:62s} (<{c}>{p:>6.1%}<reset>)")
+        print(f"<bold>{i:>4d}.<reset>", card, r=f"(<{c}>{p:>6.1%}<reset>)")
         i += 1
     for card in deck.draw_new():
-        l = str(card)
-        print(f"<bold>{i:>4d}.<reset> {l:62s} (<faint>unseen<reset>)")
+        print(f"<bold>{i:>4d}.<reset>", card, r="(<faint>unseen<reset>)")
         i += 1
 
 
