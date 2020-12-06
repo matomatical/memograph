@@ -65,11 +65,12 @@ class SpokenNode(Node):
     """
     Display with synthesised text in a supported language (see mg.media).
     """
-    def __init__(self, label, voice):
+    def __init__(self, label, text=None, voice=None):
         super().__init__(label)
-        self._voice = voice
+        self._voice = voice if voice is not None else "english"
+        self._text  = text if text is not None else self.short()
     def media(self):
-        speak(self.short(), voice=self._voice)
+        speak(self._text, voice=self._voice)
 
 class CustomNode(Node):
     def __init__(self, label, index=None, media=None, match=None):
