@@ -30,9 +30,7 @@ class Deck:
                 if topics is not None:
                     if not any(t in link.t for t in topics):
                         continue
-                card = Card(link, data[link.index()])
-                if reverse:
-                    card.flip()
+                card = Card(link, data[link.index()], reverse)
                 if card.is_new():
                     self.news.append(card)
                 else:
@@ -68,20 +66,15 @@ class Deck:
         for data in self.dbs:
             data.save()
 
-PARENS = re.compile(r"\s*\([^)]*\)")
-def simplify(string):
-    return PARENS.sub("", string)
-
 class Card:
     """
     A flashcard, representing a knowledge graph link and also maintaining
     the memory model's parameter's for that card.
     """
-    def __init__(self, link, data):
-        self.l = link
-        self.u = link.u
-        self.v = link.v
+    def __init__(self, link, data, flip):
+        self.link = link
         self.data = data
+        self.flip = flip
     
     def is_new(self):
         """bool: the card is yet to be initialised"""
@@ -120,30 +113,19 @@ class Card:
         self.data['priorParams'] = postr_params
         self.data['lastTime'] = now
 
-    def flip(self):
-        """reverse the front and back of the card (same memory model)"""
-        self.u, self.v = self.v, self.u
-    
-    def face(self):
-        """front of the card"""
-        return self.u
-    
-    def back(self):
-        """back of the card"""
-        return self.v
-
-    def link(self):
-        """the link itself (note: same link returned upon flip)"""
-        return self.l
-
-    def grade(self, guess):
-        return simplify(self.back()) == simplify(guess)
-    
     def _current_time(_self):
         return int(time.time())
 
+    def __iter__(self):
+        if self.flip:
+            yield self.link.v
+            yield self.link.u
+        else:
+            yield self.link.u
+            yield self.link.v
+
     def __str__(self):
-        card = f"{self.face()}--{self.back()}"
+        card = f"{self.link.u.index()}--{self.link.v.index()}"
         if self.is_new():
             return card
         else:

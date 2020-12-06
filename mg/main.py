@@ -66,9 +66,12 @@ def run_learn(deck, options):
     random.shuffle(hand)
     for i, card in enumerate(hand, 1):
         print(f"<bold>**<reset> learn {i}/{n} <bold>**<reset>")
-        print("prompt:", card.face())
+        face, back = card
+        print("prompt:", face.label())
+        face.media()
         input("return:")
-        print("answer:", card.back())
+        print("answer:", back.label())
+        back.media()
         instructions = "easy (g+↵) | medium (↵) | hard (h+↵)"
         rating = input("rating:", r=instructions)
         if rating == "g":
@@ -91,13 +94,17 @@ def run_drill(deck, options):
     random.shuffle(hand)
     for i, card in enumerate(hand, 1):
         print(f"<bold>**<reset> drill {i}/{n} <bold>**<reset>")
-        print("prompt:", card.face())
+        face, back = card
+        print("prompt:", face.label())
+        face.media()
         guess = input("recall:")
-        if card.grade(guess):
-            print(f"answer: <bold><green>{card.back()}<reset>")
+        if back.match(guess):
+            print(f"answer: <bold><green>{back.label()}<reset>")
+            back.media()
             card.update(True)
         else:
-            print(f"answer: <bold><red>{card.back()}<reset>")
+            print(f"answer: <bold><red>{back.label()}<reset>")
+            back.media()
             instructions = "forgot (↵) | got it (g+↵) | skip (s+↵)"
             commit = input("commit:", r=instructions)
             if commit == "g":
