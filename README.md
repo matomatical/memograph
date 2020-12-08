@@ -11,7 +11,7 @@ For example decks and my memory models, see
 * Install Python 3.7 or higher.
 * Clone this repository.
 * Install requirement `ebisu` e.g. with `pip install -r requirements.txt`.
-* If using TTS, install `espeak`.
+* If using TTS, install `espeak` and the associated python module `espeakng`.
 * Create some .mg directories
   (or see [memograph-decks](https://github.com/matomatical/memograph-decks)).
 

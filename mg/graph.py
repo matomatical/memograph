@@ -67,7 +67,7 @@ class SpokenNode(Node):
     """
     def __init__(self, label, text=None, voice=None):
         super().__init__(label)
-        self._voice = voice if voice is not None else "english"
+        self._voice = voice if voice is not None else "en"
         self._text  = text if text is not None else self.short()
     def media(self):
         speak(self._text, voice=self._voice)
