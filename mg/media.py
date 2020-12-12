@@ -1,18 +1,20 @@
-from subprocess import Popen, DEVNULL
+import queue
+import threading
+from subprocess import run, DEVNULL
 
-def _background(*argv):
-    """
-    Run a process in the background (detach and immediately return)
-    """
-    Popen(argv, stdout=DEVNULL, stderr=DEVNULL)
+class MediaDaemon:
+    def __init__(self):
+        self.queue = queue.SimpleQueue()
+        self.thread = threading.Thread(target=self.loop, daemon=True)
+        self.thread.start()
+    def loop(self):
+        while True:
+            args = self.queue.get()
+            run(args, stdout=DEVNULL, stderr=DEVNULL)
+    def schedule(self, *args):
+        self.queue.put(args)
 
-
-def sound(path):
-    """
-    Play a sound at a given data path
-    """
-    _background("ffplay", "-nodisp", "-autoexit", path)
-
+md = MediaDaemon()
 
 def speak(text, voice="english"):
     """
@@ -22,4 +24,4 @@ def speak(text, voice="english"):
 
     TODO: Allow other kwargs, passed to espeak command.
     """
-    _background("espeak", text, "-v", voice)
+    md.schedule("espeak", text, "-v", voice)
