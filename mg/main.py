@@ -6,7 +6,6 @@ from mg.color import colormap_red_green as color, to_hex
 from mg.options import get_options
 from mg.flashcards import Deck, Card
 
-
 def main():
     options = get_options()
     print("<bold>**<reset> welcome <bold>**<reset>")
@@ -32,6 +31,9 @@ def run_status(deck, options):
     n_seen  = deck.num_old()
     n_new   = deck.num_new()
     n_total = n_seen + n_new
+    if n_total == 0:
+        print("no cards! try adding some or changing the topic.")
+        return
     if n_seen:
         print("probability of recall histogram:")
         probs = [c.predict(exact=True) for c in deck.draw()]
@@ -65,6 +67,7 @@ def run_learn(deck, options):
     for i, card in enumerate(hand, 1):
         print(f"<bold>**<reset> learn {i}/{n} <bold>**<reset>")
         face, back = card
+        if card.topics(): print("topics:", card.topics())
         print("prompt:", face.label())
         face.media()
         input("return:")
@@ -93,6 +96,7 @@ def run_drill(deck, options):
     for i, card in enumerate(hand, 1):
         print(f"<bold>**<reset> drill {i}/{n} <bold>**<reset>")
         face, back = card
+        if card.topics(): print("topics:", card.topics())
         print("prompt:", face.label())
         face.media()
         guess = input("recall:")

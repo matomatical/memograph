@@ -19,6 +19,7 @@ class Deck:
     def __init__(self, graph_specs, reverse=False, topics=None):
         self.deck = []
         self.news = []
+        allcards = []
         self.dbs = []
         for graph_path, data_path in graph_specs:
             # load the knowledge graph's links and their memory parameters
@@ -35,7 +36,22 @@ class Deck:
                     self.news.append(card)
                 else:
                     self.deck.append(card)
+                allcards.append(card)
             self.dbs.append(data)
+        # number duplicate nodes
+        for side in [Card.face, Card.back]:
+            nodes = {}
+            for card in allcards:
+                node = side(card)
+                index = node.index()
+                if index in nodes:
+                    nodes[index].append(node)
+                else:
+                    nodes[index] = [node]
+            for index in nodes:
+                if len(nodes[index]) > 1:
+                    for i, node in enumerate(nodes[index], 1):
+                        node.setnum(i)
     
     def num_new(self):
         """get the number of cards that have not been seen upon load"""
@@ -75,6 +91,23 @@ class Card:
         self.link = link
         self.data = data
         self.flip = flip
+
+    def topics(self):
+        return self.link.t
+
+    def face(self):
+        return self.link.v if self.flip else self.link.u
+
+    def back(self):
+        return self.link.u if self.flip else self.link.v
+
+    def __iter__(self):
+        if self.flip:
+            yield self.link.v
+            yield self.link.u
+        else:
+            yield self.link.u
+            yield self.link.v
     
     def is_new(self):
         """bool: the card is yet to be initialised"""
@@ -115,14 +148,6 @@ class Card:
 
     def _current_time(_self):
         return int(time.time())
-
-    def __iter__(self):
-        if self.flip:
-            yield self.link.v
-            yield self.link.u
-        else:
-            yield self.link.u
-            yield self.link.v
 
     def __str__(self):
         card = f"{self.link.u.index()}--{self.link.v.index()}"

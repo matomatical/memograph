@@ -6,15 +6,14 @@ import collections
 
 from mg.media import speak
 
-PRIMITIVE = (str, int, float)
+PRIMITIVE = (str, int, float, bool)
 
 def load_link(u, v, t=""):
     if isinstance(u, PRIMITIVE):
-        u = Node(u)
+        u = Node(str(u))
     if isinstance(v, PRIMITIVE):
-        v = Node(v)
+        v = Node(str(v))
     return Link(u, v, t)
-
 
 class Link(collections.namedtuple("Link", ["u", "v", "t"])):
     """
@@ -27,8 +26,6 @@ class Link(collections.namedtuple("Link", ["u", "v", "t"])):
         t_str = f"[{self.t}]" if self.t else ""
         return f"{u_str}-{t_str}-{v_str}"
 
-
-
 PARENTHESES = re.compile(r"\s*\([^)]*\)")
 
 class Node:
@@ -36,56 +33,31 @@ class Node:
     A basic node of a knowledge graph, with string content compared by
     identity.
     """
-    def __init__(self, label):
-        self._full_label = str(label)
-        self._label = PARENTHESES.sub("", self._full_label)
+    def __init__(
+                self,
+                index_str,
+                match_str=None,
+                print_str=None,
+                speak_str=None,
+                speak_voice=None,
+            ):
+        self.index_str = index_str
+        self.match_str = match_str if match_str is not None else index_str
+        self.print_str = print_str if print_str is not None else index_str
+        self.speak_str = speak_str
+        self.speak_voice = speak_voice
+        self.num = None
     def index(self):
-        return self._label
+        return self.index_str
     def label(self):
-        return self._full_label
-    def short(self):
-        return self._label
-    def media(self):
-        pass
+        if self.num is not None:
+            return f"{self.print_str} ({self.num})"
+        else:
+            return self.print_str
     def match(self, other):
-        return self._label == other
-
-
-class MathNode(Node):
-    """
-    Contain a mathematical expression or equation, displayed (but not
-    compared) using $ delimiters (TODO: and LaTeX).
-    """
+        return self.match_str == other
     def media(self):
-        # TODO: Display LaTeX
-        print(f"${self.short()}$")
-
-
-class SpokenNode(Node):
-    """
-    Display with synthesised text in a supported language (see mg.media).
-    """
-    def __init__(self, label, text=None, voice=None):
-        super().__init__(label)
-        self._voice = voice if voice is not None else "english"
-        self._text  = text if text is not None else self.short()
-    def media(self):
-        speak(self._text, voice=self._voice)
-
-class CustomNode(Node):
-    def __init__(self, label, index=None, media=None, match=None):
-        self._label = label
-        self._index = index
-        self._media = media
-        self._match = match
-    def index(self):
-        if self._index is not None:
-            return self._index
-        return super().index()
-    def media(self):
-        if self._media is not None:
-            self._media()
-    def match(self, other):
-        if self._match is not None:
-            return self._match(self.short(), other)
-        return super().match(other)
+        if self.speak_str is not None:
+            speak(self.speak_str, voice=self.speak_voice)
+    def setnum(self, num):
+        self.num = num
