@@ -19,6 +19,8 @@ def main():
             run_status(deck, options)
         elif options.preview:
             run_preview(deck, options)
+        elif options.missed:
+            run_missed(deck, options)
         elif options.learn:
             run_learn(deck, options)
         else:
@@ -55,6 +57,16 @@ def run_preview(deck, options):
         print(f"<bold>{i:>4d}.<reset>", card, r="(<faint>unseen<reset>)")
         i += 1
 
+def run_missed(deck, options):
+    print("recently missed cards:")
+    i = 0
+    for card in deck.draw():
+        if card.is_recalled() == False:
+            i += 1
+            print(f"<bold>{i:>4d}.<reset>", card)
+            card.review()
+    print("saving.")
+    deck.save()
 
 def run_learn(deck, options):
     print("introduce some new cards...")

@@ -113,6 +113,11 @@ class Card:
         """bool: the card is yet to be initialised"""
         return self.data == {}
     
+    def is_recalled(self):
+        if 'lastResult' in self.data:
+            return self.data['lastResult']
+        return None
+    
     def initialise(self, prior_params=[1, 1, 1*60*60], num_drills=0):
         """set the memory model"""
         self.data['priorParams'] = prior_params
@@ -139,6 +144,7 @@ class Card:
         note: must be initialised
         """
         self.data['numDrills'] += 1
+        self.data['lastResult'] = got
         now = self._current_time()
         prior_params = self.data['priorParams']
         elapsed_time = now - self.data['lastTime']

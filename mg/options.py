@@ -84,6 +84,12 @@ def get_options():
         action="store_true",
         help="list cards in deck with recall probability",
     )
+    parser.add_argument(
+        '-m',
+        '--missed',
+        action="store_true",
+        help="list and time-skip recently incorrect cards",
+    )
 
     try:
         return parser.parse_args()
