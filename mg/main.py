@@ -16,20 +16,20 @@ def main():
     # run program
     try:
         if options.status:
-            run_status(deck, options)
+            run_status(deck)
         elif options.preview:
-            run_preview(deck, options)
+            run_preview(deck)
         elif options.missed:
-            run_missed(deck, options)
+            run_drill(deck, [c for c in deck.draw() if not c.is_recalled()])
         elif options.learn:
-            run_learn(deck, options)
+            run_learn(deck, deck.draw_new(options.num_cards))
         else:
-            run_drill(deck, options)
+            run_drill(deck, deck.draw(options.num_cards))
     except (EOFError, KeyboardInterrupt):
         print("\nbye! (not saving.)")
 
 
-def run_status(deck, options):
+def run_status(deck):
     n_seen  = deck.num_old()
     n_new   = deck.num_new()
     n_total = n_seen + n_new
@@ -45,7 +45,7 @@ def run_status(deck, options):
         f"{n_new} cards unseen ({n_new/n_total:.0%})"
     )
 
-def run_preview(deck, options):
+def run_preview(deck):
     print("cards (probability of recall):")
     i = 1
     for card in deck.draw():
@@ -57,20 +57,8 @@ def run_preview(deck, options):
         print(f"<bold>{i:>4d}.<reset>", card, r="(<faint>unseen<reset>)")
         i += 1
 
-def run_missed(deck, options):
-    print("recently missed cards:")
-    i = 0
-    for card in deck.draw():
-        if card.is_recalled() == False:
-            i += 1
-            print(f"<bold>{i:>4d}.<reset>", card)
-            card.review()
-    print("saving.")
-    deck.save()
-
-def run_learn(deck, options):
+def run_learn(deck, hand):
     print("introduce some new cards...")
-    hand = deck.draw_new(options.num_cards)
     n = len(hand)
     if n == 0:
         print("no new cards! try drilling some old ones.")
@@ -97,9 +85,8 @@ def run_learn(deck, options):
     deck.save()
 
     
-def run_drill(deck, options):
+def run_drill(deck, hand):
     print("drill some old cards...")
-    hand = deck.draw(options.num_cards)
     n = len(hand)
     if n == 0:
         print("no old cards! try learning some new ones.")
