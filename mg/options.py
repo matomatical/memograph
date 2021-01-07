@@ -16,6 +16,8 @@ GRAPH_SPEC_HELP = """
   Such a directory should contain two files:
   * 'graph.py', defining a generator function 'graph()' which yields
     (node 1, node 2, topic) triples (or (node 1, node 2) pairs).
+    Nodes can be of primitive types (str, int, float, bool) or the
+    custom `Node` type from `mg.graph`.
   * 'data.json' (created if not present; overwritten by this script)
     to store learning progress.
 """
@@ -88,7 +90,7 @@ def get_options():
         '-m',
         '--missed',
         action="store_true",
-        help="list and time-skip recently incorrect cards",
+        help="drill recently-failed and just-learned cards",
     )
 
     try:

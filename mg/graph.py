@@ -30,8 +30,9 @@ PARENTHESES = re.compile(r"\s*\([^)]*\)")
 
 class Node:
     """
-    A basic node of a knowledge graph, with string content compared by
-    identity.
+    A custom node of a knowledge graph, with flexible/independent
+    string content for indexing, display, comparison, and (optional)
+    vocalisation.
     """
     def __init__(
                 self,
@@ -41,10 +42,20 @@ class Node:
                 speak_str=None,
                 speak_voice=None,
             ):
+        index_str = str(index_str)
         self.index_str = index_str
-        self.match_str = match_str if match_str is not None else index_str
-        self.print_str = print_str if print_str is not None else index_str
-        self.speak_str = speak_str
+        if match_str is None:
+            self.match_str = index_str
+        else:
+            self.match_str = str(match_str)
+        if print_str is None:
+            self.print_str = index_str
+        else:
+            self.print_str = str(print_str)
+        if speak_str is None:
+            self.speak_str = None
+        else:
+            self.speak_str = str(speak_str)
         self.speak_voice = speak_voice
         self.num = None
     def index(self):
