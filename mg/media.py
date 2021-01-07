@@ -12,13 +12,19 @@ class MediaDaemon:
         try:
             while True:
                 args = self.queue.get()
-                run(args, stdout=DEVNULL, stderr=DEVNULL)
+                result = run(args, capture_output=True, text=True)
+                if result.returncode != 0:
+                    raise Exception(
+                            f"Exit with non-zero return code "
+                            f"{result.returncode} and stderr: "
+                            f"{result.stderr.strip()}"
+                        )
         except Exception as e:
             print(
                 "\nERROR Media command failed:\n",
-                repr(e),
+                e,
                 "\n(did you install media engines to your path?)."
-                "\nDisabling media for this session but you can continue.",
+                "\nDisabling media for this session, but you can continue.",
                 file=sys.stderr,
             )
     def schedule(self, *args):
