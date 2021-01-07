@@ -20,6 +20,8 @@ see [tutorial](tutorial/).
   [memograph-decks](https://github.com/matomatical/memograph-decks))
   for examples.
 
+Should work on macOS, Android (Termux), Arch Linux, and probably elsewhere.
+
 ## Usage
 
 Call the program with `python3 -m mg <options>` (or use an alias `mg`).
