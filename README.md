@@ -13,8 +13,9 @@ see [tutorial](tutorial/).
 
 * Install Python 3.7 or higher.
 * Clone this repository.
-* Install requirement `ebisu` e.g. with `pip install -r requirements.txt`.
-* If using TTS, install `espeak`.
+* Install requirement [`ebisu`](https://github.com/fasiha/ebisu) e.g. with
+  `pip install -r requirements.txt`.
+* If using TTS, install [`espeak`](https://github.com/espeak-ng/espeak-ng/).
 * Create some flashcard decks (.mg directories).
   See also the [tutorial](tutorial/) or my repository of decks
   [memograph-decks](https://github.com/matomatical/memograph-decks))
@@ -93,9 +94,6 @@ or the example repository of decks
 ### TODO list
 
 * Improve keyboard controls when an option is needed
-* Link espeak and ebisu from this readme
-* Improve comprehesiveness of espeak exception handling
-  (what if the command itself fails?)
 * Add multimedia extensions:
   * Sound effects
   * Mathematics equations (in the terminal?!)

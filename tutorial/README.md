@@ -170,7 +170,7 @@ recall at that moment according to the Bayesian memory model's estimates
 of the half-life of your memory for each card.
 
 ```
-mg -s de.digits.mg
+$ mg -s de.digits.mg
 ** welcome **
 probability of recall histogram:
 [  0%,   5%] (0)
@@ -433,8 +433,11 @@ perform other normalisation where appropriate.
 
 ### Text-to-Speech
 
-By installing the optional utility `espeak` on your system, you will
-enable having `mg` read out the prompts and correct answers to you!
+By installing the optional utility
+[`espeak`](https://github.com/espeak-ng/espeak-ng/)
+on your system,
+you will enable Text-to-Speech functionality in `mg`---to read out the
+prompts and correct answers to you as you practice!
 However, even with `espeak` installed, you have to tell `mg` that your
 nodes are to be spoken, and in which language. The same `mg.graph.Node`
 class is used for this, with the constructor arguments `speak_str` and
