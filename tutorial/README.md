@@ -122,7 +122,7 @@ $ mg -l de.digits.mg
 ```
 
 This will begin the learning session. `mg` will randomly order the first
-six (by default, see `--number` flag) cards from the generator and
+six (by default, see `--num_cards` flag) cards from the generator and
 introduce them one by one. For example, you might see:
 
 ```
@@ -262,10 +262,11 @@ Simply run:
 $ mg de.digits.mg
 ```
 
-`mg` will use the memory model to find the six (see `--number` flag to change
-the length of the session) most-likely-to-be-forgotten flashcards and shuffle
-these into a drill session for you. We only have six cards learned so far, so
-they'll all appear in this first session. You'll see something like this:
+`mg` will use the memory model to find the six (see `--num_cards` flag to
+change the length of the session) most-likely-to-be-forgotten flashcards
+and shuffle these into a drill session for you.
+We only have six cards learned so far, so they'll all appear in this first
+session. You'll see something like this:
 
 ```
 ** welcome **
