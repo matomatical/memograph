@@ -92,6 +92,8 @@ or the example repository of decks
 
 * Improve keyboard controls when an option is needed
 * Link espeak and ebisu from this readme
+* Improve comprehesiveness of espeak exception handling
+  (what if the command itself fails?)
 * Add multimedia extensions:
   * Sound effects
   * Mathematics equations (in the terminal?!)
