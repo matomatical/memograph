@@ -1,3 +1,5 @@
+import itertools
+
 from mg.io import print
 from mg.color import colormap_red_green as color, to_hex
 
@@ -19,6 +21,30 @@ def print_hist(data, lo=0, hi=1, width=50, height=22, labelformat="4.2f"):
         lob = "(" if i else "["
         col = to_hex(color(b2))
         print(f"{lob}{l1}, {l2}] ({l3})", f"<{col}>{bar}<reset>")
+
+
+def print_bars(values, labels=None, colors=None, width=50, height=22,
+        valueformat="", labelformat=""):
+    values = list(values)
+    if colors is None: colors = itertools.repeat("#22dd22")
+    # compute the bar heights
+    vmax = max(values)
+    heights = [height * v / vmax for v in values]
+    # balance the labels and valuelabels
+    if labels is not None:
+        labels = [format(l, labelformat) for l in labels]
+        lmax = max(len(l) for l in labels)
+        labels = [l.rjust(lmax)+" " for l in labels]
+    else:
+        labels = itertools.repeat("")
+    valuelabels = [format(v, valueformat) for v in values]
+    vlmax = max(len(vl) for vl in valuelabels)
+    valuelabels = [f"({vl.rjust(vlmax)}) " for vl in valuelabels]
+    
+    # print the bars
+    for lab, vlab, ht, col in zip(labels, valuelabels, heights, colors):
+        bar = int(ht) * "█" + _part(ht - int(ht))
+        print(lab, vlab, f"<{col}>{bar}<reset>", sep="")
 
 
 def _part(f):

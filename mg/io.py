@@ -11,9 +11,9 @@ std_input = input
 def print(*args, r=None, sep=" ", **kwargs):
     if r is not None:
         l = sep.join(to_ansi(arg) for arg in args)
-        std_print(justify(l=l, r=to_ansi(r)), **kwargs)
+        std_print(justify(l=l, r=to_ansi(r)), sep=sep, **kwargs)
     else:
-        std_print(*[to_ansi(arg) for arg in args], **kwargs)
+        std_print(*[to_ansi(arg) for arg in args], sep=sep, **kwargs)
 
 
 def input(prompt, r=None, expected_width=1):
