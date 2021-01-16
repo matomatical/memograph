@@ -10,6 +10,8 @@ from mg import ptdb
 from mg import topk
 
 from mg.graph import load_link
+    
+
 
 class Deck:
     """
@@ -118,15 +120,17 @@ class Card:
             return self.data['lastResult']
         return None
     
-    def initialise(self, prior_params=[1, 1, 1*60*60], num_drills=0):
+    def initialise(self, prior_params=[1, 1, 1*60*60]):
         """set the memory model"""
         self.data['priorParams'] = prior_params
-        self.data['numDrills'] = num_drills
+        self.data['numDrills'] = 0
         self.data['lastTime'] = self._current_time()
+        self._log("LEARN", prior=prior_params)
 
     def review(self):
         """update time without updating memory model"""
         self.data['lastTime'] = self._current_time()
+        self._log("REVIEW")
     
     def predict(self, exact=False):
         """
@@ -151,9 +155,23 @@ class Card:
         postr_params = ebisu.updateRecall(prior_params, got, 1, elapsed_time)
         self.data['priorParams'] = postr_params
         self.data['lastTime'] = now
+        self._log("DRILL", got=got)
 
     def _current_time(_self):
         return int(time.time())
+
+    def _log(self, event, **data):
+        # TODO: COMPLETELY OVERHAUL THIS WHOLE CARD AND DECK SYSTEM IT'S SHIT
+        import json
+        with open("mglog.jsonl", 'a') as file:
+            line = json.dumps({
+                    'id': self.link.index(),
+                    'time': self._current_time(),
+                    'event': event.upper(),
+                    'data': data
+                })
+            print(line, file=file)
+
 
     def __str__(self):
         card = f"{self.link.u.index()}--{self.link.v.index()}"
