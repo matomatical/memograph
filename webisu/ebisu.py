@@ -13,7 +13,7 @@ from webisu.webisu import update_model_bernoulli as _update_model_bernoulli
 from webisu.webisu import init_model             as _init_model
 
 
-def _convertPriorToParams(prior):
+def _convert_prior_to_params(prior):
     """
     Luckily, we both use (alpha, beta, half-life) tuples as parameters.
     If that ever changes, I will update this code.
@@ -28,9 +28,9 @@ def predictRecall(prior, tnow, exact=False):
     Note: No _cachedBetaln (yet)
     """
     if exact:
-        return p_recall_t_mean(tnow, _convert_prior_to_params(prior))
+        return _p_recall_t_mean(tnow, _convert_prior_to_params(prior))
     else:
-        return p_recall_t_lnmean(tnow, _convert_prior_to_params(prior))
+        return _p_recall_t_lnmean(tnow, _convert_prior_to_params(prior))
 
 
 def updateRecall(prior, successes, total, tnow, rebalance=True, tback=None):
@@ -49,7 +49,7 @@ def updateRecall(prior, successes, total, tnow, rebalance=True, tback=None):
     if total > 1:
         raise NotImplementedError("Sorry, total > 1 not implemented.")
     r = bool(successes) # true iff successes > 0 (assume non-negative)
-    return update_model_bernoulli(r, tnow, _convert_prior_to_params(prior))
+    return _update_model_bernoulli(r, tnow, _convert_prior_to_params(prior))
 
 
 def modelToPercentileDecay(model, percentile=0.5, coarse=False):
