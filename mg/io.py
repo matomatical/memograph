@@ -1,8 +1,7 @@
 import re
 import os
 import sys
-import readline                  # enable richer prompts with navigation
-readline.set_auto_history(False) # but disable history
+
 
 std_print = print
 std_input = input
