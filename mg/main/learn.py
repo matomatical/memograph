@@ -17,7 +17,7 @@ def run_learn(deck, options):
     for i, card in enumerate(hand, 1):
         print(f"<bold>**<reset> learn {i}/{n} <bold>**<reset>")
         face, back = card
-        if card.topics(): print("topics:", card.topics())
+        if card.topics(): print("topics:", '.'.join(card.topics()))
         print("prompt:", face.label())
         face.media()
         input("return:")

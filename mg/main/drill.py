@@ -24,7 +24,7 @@ def run_drill(deck, options):
             back, face = card
         else:
             face, back = card
-        if card.topics(): print("topics:", card.topics())
+        if card.topics(): print("topics:", '.'.join(card.topics()))
         print("prompt:", face.label())
         face.media()
         guess = input("recall:")

@@ -1,5 +1,6 @@
 from mg.io import print
 from mg.options import get_options
+from mg.flashcards import Deck
 
 from mg.main.status import run_status
 from mg.main.drill  import run_drill
