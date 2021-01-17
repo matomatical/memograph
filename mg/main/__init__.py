@@ -1,3 +1,5 @@
+from glob import glob
+
 from mg.io import print, input
 from mg.plot import print_hist
 from mg.color import colormap_red_green as color, to_hex
@@ -13,8 +15,9 @@ def main():
     options = get_options()
     print("<bold>**<reset> welcome <bold>**<reset>")
 
-    # now load cards, filtering for graph stuff
-    deck = Deck(options.graphs, reverse=False, topics=None)
+    # now load cards, filtering for provided topics
+    graphs = [(g+"/graph.py", g+"/data.json") for g in glob('*.mg')]
+    deck = Deck(graphs, topics=options.topics)
 
     # run program
     try:

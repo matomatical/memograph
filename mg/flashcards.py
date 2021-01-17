@@ -18,7 +18,7 @@ class Deck:
     A collection of flashcards, from which one can draw unseen or at-risk
     cards for review
     """
-    def __init__(self, graph_specs, reverse=False, topics=None):
+    def __init__(self, graph_specs, topics=set()):
         self.deck = []
         self.news = []
         allcards = []
@@ -30,10 +30,9 @@ class Deck:
             # wrap each link in a flashcard
             for uvt in graph:
                 link = load_link(*uvt)
-                if topics is not None:
-                    if not any(t in link.t for t in topics):
-                        continue
-                card = Card(link, data[link.index()], reverse)
+                card = Card(link, data[link.index()])
+                if not (topics <= card.topics()):
+                    continue
                 if card.is_new():
                     self.news.append(card)
                 else:
@@ -89,27 +88,22 @@ class Card:
     A flashcard, representing a knowledge graph link and also maintaining
     the memory model's parameter's for that card.
     """
-    def __init__(self, link, data, flip):
+    def __init__(self, link, data):
         self.link = link
         self.data = data
-        self.flip = flip
 
     def topics(self):
-        return self.link.t
+        return set(self.link.t.split("."))
 
     def face(self):
-        return self.link.v if self.flip else self.link.u
+        return self.link.u
 
     def back(self):
-        return self.link.u if self.flip else self.link.v
+        return self.link.v
 
     def __iter__(self):
-        if self.flip:
-            yield self.link.v
-            yield self.link.u
-        else:
-            yield self.link.u
-            yield self.link.v
+        yield self.link.u
+        yield self.link.v
     
     def is_new(self):
         """bool: the card is yet to be initialised"""

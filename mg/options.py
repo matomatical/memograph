@@ -13,9 +13,9 @@ NUMBER_DEFAULT = 6
 # TODO: CHANGE THIS TO SOME KIND OF TOPIC LIST
 # TODO: MAYBE MAKE THE SCRIPTS HAVE A .mg EXTENSION?
 GRAPH_SPEC_HELP = """
-knowledge graph specification format: specify your knowledge graph's edges
-in one or more Python scripts inside the current directory (TODO: allow
-to config directory). Each script should define a generator function
+knowledge graph specification format:
+Knowledge graph edges (a.k.a. 'cards') are taken from .mg decks in the
+current directory. Each .mg deck is a script defining a generator function
 `graph()` yielding (node 1, node 2) pairs or (node 1, node 2, topic) triples.
 Nodes can be primitives (str, int, float, bool) or of type `mg.graph.Node`.
 """
@@ -46,14 +46,14 @@ def get_options():
     # 
     drillparser = subparsers.add_parser(
         "drill",
+        description="mg drill: practice the cards most in need of review",
         help="drill existing cards this session",
         epilog=GRAPH_SPEC_HELP,
     )
     drillparser.add_argument(
-        'graphs',
-        metavar='GRAPH',
-        help="path to a graph module, a .mg directory (see below)",
-        action=GraphSpecsAction,
+        'topics',
+        metavar='TOPIC',
+        help="topic filter (restrict to cards with this topic)",
         nargs="*",
     )
     drillparser.add_argument(
@@ -82,14 +82,14 @@ def get_options():
     #
     learnparser = subparsers.add_parser(
         "learn",
+        description="mg learn: introduce new cards for the first time",
         help="introduce new cards for this session",
         epilog=GRAPH_SPEC_HELP,
     )
     learnparser.add_argument(
-        'graphs',
-        metavar='GRAPH',
-        help="path to a graph module, a .mg directory (see below)",
-        action=GraphSpecsAction,
+        'topics',
+        metavar='TOPIC',
+        help="topic filter (restrict to cards with this topic)",
         nargs="*",
     )
     learnparser.add_argument(
@@ -106,14 +106,13 @@ def get_options():
     # 
     statusparser = subparsers.add_parser(
         "status",
+        description="mg status: summarise model statistics and predictions",
         help="summarise model predictions",
-        epilog=GRAPH_SPEC_HELP,
     )
     statusparser.add_argument(
-        'graphs',
-        metavar='GRAPH',
-        help="path to a graph module, a .mg directory (see below)",
-        action=GraphSpecsAction,
+        'topics',
+        metavar='TOPIC',
+        help="topic filter (restrict to cards with this topic)",
         nargs="*",
     )
     statusparser.add_argument(
@@ -151,24 +150,11 @@ def get_options():
     subparsers.add_parser("checkup",   help="coming soon...")
 
 
-    # TODO: MOVE THIS BULLSHIT OUT INTO MAIN
-    try:
-        return parser.parse_args()
-    except FileNotFoundError as e:
-        parser.error(e)
-
-class GraphSpecsAction(argparse.Action):
-    def _prep(self, path):
-        if not os.path.isdir(path):
-            if not path.endswith(".mg") and os.path.isdir(path+".mg"):
-                path = path + ".mg"
-            else:
-                raise FileNotFoundError("missing .mg directory " + path)
-        graph_path = os.path.join(path, "graph.py")
-        data_path = os.path.join(path, "data.json")
-        if not os.path.lexists(graph_path):
-            raise FileNotFoundError("missing graph file " + graph_path)
-        return graph_path, data_path
-    def __call__(self, parser, namespace, values, option_string=None):
-        # save the result in the arguments namespace as a tuple
-        setattr(namespace, self.dest, [self._prep(v) for v in values])
+    # # #
+    # parsing, postprocessing, return
+    # 
+    options = parser.parse_args()
+    # TODO: use custom actions for this
+    if "topics" in options:
+        options.topics = set(options.topics)
+    return options
