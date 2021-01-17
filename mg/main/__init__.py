@@ -21,8 +21,15 @@ def main():
         if options.subcommand == "status":
             run_status(deck, options)
         elif options.subcommand == "drill":
-            run_drill(deck, deck.draw(options.num_cards))
+            run_drill(deck, options)
+            print("saving.")
+            deck.save()
         elif options.subcommand == "learn":
-            run_learn(deck, deck.draw_new(options.num_cards))
-    except (EOFError, KeyboardInterrupt):
+            run_learn(deck, options)
+            print("saving.")
+            deck.save()
+    except KeyboardInterrupt:
+        print("\nbye! (saving.)")
+        deck.save()
+    except EOFError:
         print("\nbye! (not saving.)")

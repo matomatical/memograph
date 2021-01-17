@@ -344,10 +344,8 @@ Some final notes:
 
 * Continue until the end of the session for the model to be saved to disk.
 * If you need to or want to abort the session early, you can send
-  '^C' (control+C) or '^D' (control+D). The session will not be saved.
-  Note: In the future I might make one of these save the session and the
-  other abort without saving, so that it's still possible to abort without
-  losing progress during long sessions.
+  '^C' (control+C) (the session so far will be saved) or
+  '^D' (control+D) (the session so far will not be saved).
 * You can also drill cards *backwards*, that is, to type the front of the
   card after being prompted with the back of the card. Use the `--reverse`
   flag for this.

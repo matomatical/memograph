@@ -27,7 +27,6 @@ def get_options():
         description=DESCRIP,
         epilog=GRAPH_SPEC_HELP,
     )
-
     parser.add_argument(
         '-v',
         '--version',
@@ -42,8 +41,6 @@ def get_options():
         help="run subcommand --help for detailed usage",
     )
 
-
-
     # # #
     # drill subcommand
     # 
@@ -57,7 +54,7 @@ def get_options():
         metavar='GRAPH',
         help="path to a graph module, a .mg directory (see below)",
         action=GraphSpecsAction,
-        nargs="+",
+        nargs="*",
     )
     drillparser.add_argument(
         '-n',
@@ -93,7 +90,7 @@ def get_options():
         metavar='GRAPH',
         help="path to a graph module, a .mg directory (see below)",
         action=GraphSpecsAction,
-        nargs="+",
+        nargs="*",
     )
     learnparser.add_argument(
         '-n',
@@ -117,7 +114,7 @@ def get_options():
         metavar='GRAPH',
         help="path to a graph module, a .mg directory (see below)",
         action=GraphSpecsAction,
-        nargs="+",
+        nargs="*",
     )
     statusparser.add_argument(
         '-H',
@@ -147,18 +144,16 @@ def get_options():
     # # #
     # future commands
     # 
-    subparsers.add_parser("history", help="coming soon...")
-    subparsers.add_parser("commit", help="coming soon...")
-    subparsers.add_parser("sync", help="coming soon...")
+    subparsers.add_parser("history",   help="coming soon...")
+    subparsers.add_parser("commit",    help="coming soon...")
+    subparsers.add_parser("sync",      help="coming soon...")
     subparsers.add_parser("recompute", help="coming soon...")
-    subparsers.add_parser("checkup", help="coming soon...")
+    subparsers.add_parser("checkup",   help="coming soon...")
 
 
     # TODO: MOVE THIS BULLSHIT OUT INTO MAIN
     try:
-        options = parser.parse_args()
-        print(options)
-        return options
+        return parser.parse_args()
     except FileNotFoundError as e:
         parser.error(e)
 

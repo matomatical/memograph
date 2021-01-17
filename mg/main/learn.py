@@ -3,13 +3,17 @@ import random
 from mg.io import print, input
 
 
-def run_learn(deck, hand):
+def run_learn(deck, options):
+    # decide which cards to introduce
     print("introduce some new cards...")
+    hand = deck.draw_new(options.num_cards)
     n = len(hand)
     if n == 0:
         print("no new cards! try drilling some old ones.")
         return
     random.shuffle(hand)
+
+    # introduce the cards
     for i, card in enumerate(hand, 1):
         print(f"<bold>**<reset> learn {i}/{n} <bold>**<reset>")
         face, back = card
@@ -27,5 +31,3 @@ def run_learn(deck, hand):
             card.initialise([1, 1,        1*60])
         else:
             card.initialise([1, 1,     1*60*60])
-    print("saving.")
-    deck.save()
