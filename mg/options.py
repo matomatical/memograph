@@ -3,23 +3,21 @@ import argparse
 
 # Program information:
 PROGRAM = "mg"
-VERSION = "0.0.1"
-DESCRIP = "drill some edges of a knowledge graph with Bayesian scheduling."
+VERSION = "0.0.3"
+DESCRIP = "memograph: memorise a knowledge graph with Bayesian scheduling"
 
 # XXX_DEFUALT default values (to use if flag is not provided)
 # XXX_NOVALUE missing values (to use if flag is provided, but with no value)
 NUMBER_DEFAULT = 6
 
+# TODO: CHANGE THIS TO SOME KIND OF TOPIC LIST
+# TODO: MAYBE MAKE THE SCRIPTS HAVE A .mg EXTENSION?
 GRAPH_SPEC_HELP = """
-.mg direcory format:
-  The .mg directory format is required to specify graphs for drilling.
-  Such a directory should contain two files:
-  * 'graph.py', defining a generator function 'graph()' which yields
-    (node 1, node 2, topic) triples (or (node 1, node 2) pairs).
-    Nodes can be of primitive types (str, int, float, bool) or the
-    custom `Node` type from `mg.graph`.
-  * 'data.json' (created if not present; overwritten by this script)
-    to store learning progress.
+knowledge graph specification format: specify your knowledge graph's edges
+in one or more Python scripts inside the current directory (TODO: allow
+to config directory). Each script should define a generator function
+`graph()` yielding (node 1, node 2) pairs or (node 1, node 2, topic) triples.
+Nodes can be primitives (str, int, float, bool) or of type `mg.graph.Node`.
 """
 
 def get_options():
@@ -27,27 +25,41 @@ def get_options():
     parser = argparse.ArgumentParser(
         prog=PROGRAM,
         description=DESCRIP,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=GRAPH_SPEC_HELP,
     )
-    
-    # positional arguments used for player package specifications:
+
     parser.add_argument(
+        '-v',
+        '--version',
+        action='version',
+        version=f"{PROGRAM} {VERSION}"
+    )
+    
+    # most of the action happens within one of the various subcommands:
+    subparsers = parser.add_subparsers(
+        dest="subcommand",
+        title="subcommands",
+        help="run subcommand --help for detailed usage",
+    )
+
+
+
+    # # #
+    # drill subcommand
+    # 
+    drillparser = subparsers.add_parser(
+        "drill",
+        help="drill existing cards this session",
+        epilog=GRAPH_SPEC_HELP,
+    )
+    drillparser.add_argument(
         'graphs',
         metavar='GRAPH',
         help="path to a graph module, a .mg directory (see below)",
         action=GraphSpecsAction,
         nargs="+",
     )
-    
-    # optional arguments used for configuration:
-    parser.add_argument(
-        '-v',
-        '--version',
-        action='version',
-        version=VERSION
-    )
-    parser.add_argument(
+    drillparser.add_argument(
         '-n',
         '--num_cards',
         metavar="N",
@@ -55,46 +67,98 @@ def get_options():
         default=NUMBER_DEFAULT, # if the flag is not present
         help=f"number of cards in drill session (default: {NUMBER_DEFAULT})",
     )
-    parser.add_argument(
-        '-l',
-        '--learn',
-        action="store_true",
-        help="use new cards for session",
-    )
-    parser.add_argument(
+    drillparser.add_argument(
         '-r',
         '--reverse',
         action="store_true",
         help="reverse card sides for session",
     )
-    parser.add_argument(
-        '-t',
-        '--topics',
-        metavar="TOPIC",
-        nargs='+',
-        help=f"include cards whose topic contains these substrings",
-    )
-    parser.add_argument(
-        '-s',
-        '--status',
-        action="store_true",
-        help="show Bayesian status for decks",
-    )
-    parser.add_argument(
-        '-p',
-        '--preview',
-        action="store_true",
-        help="list cards in deck with recall probability",
-    )
-    parser.add_argument(
+    drillparser.add_argument(
         '-m',
         '--missed',
         action="store_true",
-        help="drill recently-failed and just-learned cards",
+        help="restrict to recently-failed and just-learned cards",
     )
 
+    # # #
+    # learn subcommand
+    #
+    learnparser = subparsers.add_parser(
+        "learn",
+        help="introduce new cards for this session",
+        epilog=GRAPH_SPEC_HELP,
+    )
+    learnparser.add_argument(
+        'graphs',
+        metavar='GRAPH',
+        help="path to a graph module, a .mg directory (see below)",
+        action=GraphSpecsAction,
+        nargs="+",
+    )
+    learnparser.add_argument(
+        '-n',
+        '--num_cards',
+        metavar="N",
+        type=int,
+        default=NUMBER_DEFAULT, # if the flag is not present
+        help=f"number of cards in drill session (default: {NUMBER_DEFAULT})",
+    )
+
+    # # #
+    # status subcommand
+    # 
+    statusparser = subparsers.add_parser(
+        "status",
+        help="summarise model predictions",
+        epilog=GRAPH_SPEC_HELP,
+    )
+    statusparser.add_argument(
+        'graphs',
+        metavar='GRAPH',
+        help="path to a graph module, a .mg directory (see below)",
+        action=GraphSpecsAction,
+        nargs="+",
+    )
+    statusparser.add_argument(
+        '-H',
+        '--histogram',
+        action="store_true",
+        help="histogram the expected recall probabilities",
+    )
+    statusparser.add_argument(
+        '-P',
+        '--posterior',
+        action="store_true",
+        help="histogram the full posterior over recall probabilities",
+    )
+    statusparser.add_argument(
+        '-S',
+        '--scatter',
+        action="store_true",
+        help="scatter expected recall probability against elapsed time",
+    )
+    statusparser.add_argument(
+        '-L',
+        '--list',
+        action="store_true",
+        help="print every card with elapsed time and expected recall",
+    )
+
+    # # #
+    # future commands
+    # 
+    subparsers.add_parser("history", help="coming soon...")
+    subparsers.add_parser("commit", help="coming soon...")
+    subparsers.add_parser("sync", help="coming soon...")
+    subparsers.add_parser("recompute", help="coming soon...")
+    subparsers.add_parser("checkup", help="coming soon...")
+
+
+    # TODO: MOVE THIS BULLSHIT OUT INTO MAIN
     try:
-        return parser.parse_args()
+        options = parser.parse_args()
+        print(options)
+        return options
     except FileNotFoundError as e:
         parser.error(e)
 
