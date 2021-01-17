@@ -34,7 +34,7 @@ def plot_histogram(deck):
     if n_seen:
         print("probability of recall histogram:")
         probs = [c.predict(exact=True) for c in deck.draw()]
-        print_hist(probs, lo=0, hi=1, width=20, height=56, labelformat="4.0%")
+        print_hist(probs, lo=0, hi=1, bins=20, height=56, labelformat="4.0%")
     print(
         f"{n_seen} cards seen ({n_seen/n_total:.0%}),",
         f"{n_new} cards unseen ({n_new/n_total:.0%})"
