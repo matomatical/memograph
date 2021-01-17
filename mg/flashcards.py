@@ -1,4 +1,6 @@
+import os
 import re
+import glob
 import time
 import runpy
 import itertools
@@ -10,7 +12,11 @@ from mg import ptdb
 from mg import topk
 
 from mg.graph import load_link
-    
+
+# ensure mgdata directory exists
+# TODO: This really does NOT BELONG here
+if not os.path.isdir("mgdata"):
+    os.mkdir("mgdata")
 
 
 class Deck:
@@ -18,15 +24,16 @@ class Deck:
     A collection of flashcards, from which one can draw unseen or at-risk
     cards for review
     """
-    def __init__(self, graph_specs, topics=set()):
+    def __init__(self, topics=set()):
+        deck_paths = glob.glob('*.mg') # TODO: Allow configure?
         self.deck = []
         self.news = []
         allcards = []
         self.dbs = []
-        for graph_path, data_path in graph_specs:
+        for path in deck_paths:
             # load the knowledge graph's links and their memory parameters
-            graph = runpy.run_path(graph_path)['graph']()
-            data = ptdb.Database(data_path)
+            graph = runpy.run_path(path)['graph']()
+            data = ptdb.Database(os.path.join("mgdata", path+".json"))
             # wrap each link in a flashcard
             for uvt in graph:
                 link = load_link(*uvt)
@@ -157,7 +164,7 @@ class Card:
     def _log(self, event, **data):
         # TODO: COMPLETELY OVERHAUL THIS WHOLE CARD AND DECK SYSTEM IT'S SHIT
         import json
-        with open("mglog.jsonl", 'a') as file:
+        with open("mgdata/log.jsonl", 'a') as file:
             line = json.dumps({
                     'id': self.link.index(),
                     'time': self._current_time(),

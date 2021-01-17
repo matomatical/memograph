@@ -33,25 +33,26 @@ name too much, and I don't see why you deserve it more than I.)
 From there, see the help:
 
 ```
-usage: mg [-h] [-v] [-n N] [-l] [-r] [-t TOPIC [TOPIC ...]] [-s] [-p]
-          GRAPH [GRAPH ...]
+usage: mg [-h] [-v]
+          {drill,learn,status,history,commit,sync,recompute,checkup} ...
 
-drill some edges of a knowledge graph with Bayesian scheduling.
-
-positional arguments:
-  GRAPH                 path to a graph module, a .mg directory (see below)
+memograph: memorise a knowledge graph with Bayesian scheduling
 
 optional arguments:
   -h, --help            show this help message and exit
   -v, --version         show program's version number and exit
-  -n N, --num_cards N   number of cards in drill session (default: 6)
-  -l, --learn           use new cards for session
-  -r, --reverse         reverse card sides for session
-  -t TOPIC [TOPIC ...], --topics TOPIC [TOPIC ...]
-                        include cards whose topic contains these substrings
-  -s, --status          show Bayesian status for decks
-  -p, --preview         list cards in deck with recall probability
-  -m, --missed          drill recently-failed and just-learned cards
+
+subcommands:
+  {drill,learn,status,history,commit,sync,recompute,checkup}
+                        run subcommand --help for detailed usage
+    drill               drill existing cards this session
+    learn               introduce new cards for this session
+    status              summarise model predictions
+    history             coming soon...
+    commit              coming soon...
+    sync                coming soon...
+    recompute           coming soon...
+    checkup             coming soon...
 ```
 
 ### Making an alias
@@ -72,15 +73,11 @@ You can create your own flashcard decks by creating a directory in the
 From the help:
 
 ```
-.mg direcory format:
-  The .mg directory format is required to specify graphs for drilling.
-  Such a directory should contain two files:
-  * 'graph.py', defining a generator function 'graph()' which yields
-    (node 1, node 2, topic) triples (or (node 1, node 2) pairs).
-    Nodes can be of primitive types (str, int, float, bool) or the
-    custom `Node` type from `mg.graph`.
-  * 'data.json' (created if not present; overwritten by this script)
-    to store learning progress.
+knowledge graph specification format: Knowledge graph edges (a.k.a. 'cards')
+are taken from .mg decks in the current directory. Each .mg deck is a script
+defining a generator function `graph()` yielding (node 1, node 2) pairs or
+(node 1, node 2, topic) triples. Nodes can be primitives (str, int, float,
+bool) or of type `mg.graph.Node`.
 ```
 
 For more guidance and deck options, see the [tutorial](tutorial/),
