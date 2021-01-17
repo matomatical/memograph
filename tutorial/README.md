@@ -381,10 +381,6 @@ def graph():
 # +               ^^^^^^^^^^^^^
 ```
 
-TODO: UPDATED UP TO HERE
-TODO: ADD FILENAME TO TOPICS
-
-
 ### Custom display and comparison strings
 
 We might want to separate the strings we use for prompting from the
@@ -477,35 +473,37 @@ you can learn which answer to give along with which version of the prompt.
 
 ## Step 6: Modifying a deck after learning
 
-The memory model parameters are stored in the deck directory in a JSON
-file called `data.json` (in our example, that's `de.digits.mg/data.json`).
+To store the memory model parameters, `mg` creates a subdirectory of the
+current directory called `mgdata/`. The memory model parameters from cards
+in a `.mg` script are stored here inside a file with the same name plus a
+`.json` extension (in our example, that's `mgdata/de.digits.mg.json`).
 Within are the parameters for each card, keyed by a string made up of the
 card's front and back 'index strings'
 (see [above](#custom-display-and-comparison-strings))
-and, if present, the optional topic (see [above](#topics)).
+and, if present, the optional topics (see [above](#topics)).
 
 The advantage of this is that you can reorder/insert into the generator
 script's output as much as you like and they will still be found.
 
 But the disadvantage is that if you change the value or even the spelling
 of a node, its index into the data file will change, and the memory
-parameters already there will be orphaned.
+parameters already there will be 'orphaned'.
 
-Sometimes, for example when you are simply correcting a card, you want
-to keep the same parameters. In this case, unfortunately, the only
-way to achieve this is to go into `data.json`, find the entry with the
-old key, and update the key (ensuring no current `mg` sessions later
-save over your modifications, such as at the end of a learning or
-drill session).
+Sometimes, for example when you are simply correcting a card,
+you want to keep the same parameters.
+In this case, unfortunately, the only way to achieve this is to go into
+data file, find the entry with the old key, and update the key (ensuring
+no current `mg` sessions later save over your modifications, such as at
+the end of a learning or drill session).
 
 In other cases, you want to reset the parameters, as if you were deleting
 the old card and creating a new one. Then you can either leave the
 orphaned entry in the data file (it does no harm other than taking up
 space) or you can find and delete it manually.
 
-> #### Help Wanted:
+> #### Future:
 > 
 > Unfortunately this step is quite clunky.
-> I'm still thinking about the best way to handle this process
-> of maintaining these data file references.
-> Do you have any ideas? Let me know!
+> I'm planning to incorporate a `checkup` mode into the `mg` script which
+> which will help automatically detect and correct these broken references
+> to save users from dealing with the data files.
