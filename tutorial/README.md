@@ -32,26 +32,19 @@ Steps:
 > This deck format is not considered stable; it might change with future
 > commits to this repository as this application matures.
 
-From any directory you like, make a new `.mg` directory. This will
-consitute your flashcard deck on the filesystem.
+From any directory you like, make a new `.mg` file. This will constitute
+your flashcard deck on the filesystem.
 
 ```
-$ mkdir de.digits.mg
+$ touch de.digits.mg
 ```
 
-Create a file inside this directory called `graph.py`. You should
-use this name regardless of the name of your deck, since it's assumed
-by the `mg` utility.
-
-```
-$ touch de.digits.mg/graph.py
-```
-
-This script's job is to generate flashcards. Flashcards are to be
-represented as two-tuples containing the 'front' of the card followed
-by the 'back' of the card. Each 'side' of the card can be a string,
-integer, float, or boolean value, and these value will be the ones
-shown when you are later learning and practicing the flashcards.
+Despite its extension, this file is really a Python script.
+The script's job is to *generate flashcards*.
+Flashcards are to be represented as two-tuples containing the 'front' of
+the card followed by the 'back' of the card. Each 'side' of the card can
+be a string, integer, float, or boolean value, and these value will be the
+ones shown when you are later learning and practising the flashcards.
 
 The entry point to the script is a Python generator function called
 `graph`. `graph` should yield all of the flashcard tuples in the deck.
@@ -72,7 +65,7 @@ def graph():
 ```
 
 Using Python to generate flashcards gives us the full power of the
-langauge in specifying your list of flashcards.
+language in specifying your list of flashcards.
 In some cases, we might want to leverage this additional expressive
 power to avoid some typing.
 Here's an example equivalent to the above script:
@@ -112,18 +105,21 @@ and even *text-to-speech*!
 Now that we have a deck, it's time to learn its cards! We'll use the `mg`
 in *learn mode* for this.
 
-Inside the same directory as our deck (directory) `de.digits.mg`, and 
+Inside the same directory as our deck (Python script) `de.digits.mg`, and 
 with an alias for the memograph script called `mg`
 (see the installation and usage sections of the main README file),
 run the following command to begin the learning session:
 
 ```
-$ mg -l de.digits.mg
+$ mg learn
 ```
 
-This will begin the learning session. `mg` will randomly order the first
-six (by default, see `--num_cards` flag) cards from the generator and
-introduce them one by one. For example, you might see:
+`mg` will look for decks (`.mg` files) in the current directory and load
+the cards from the generator function.
+
+Then `mg` will begin the learning session. It will randomly order the
+first six (by default, see `--num_cards` flag) cards from the generator
+and introduce them one by one. For example, you might see:
 
 ```
 ** welcome **
@@ -165,12 +161,12 @@ fails with the card help to refine an estimate of the speed of that decay
 (see [ebisu](https://fasiha.github.io/post/ebisu/)).
 
 At any time, you can inspect the 'Bayesian status' of your deck with the
-command `mg -s`. You will see a histogram of the expected probability of
+command `mg status`. You will see a histogram of the expected probability of
 recall at that moment according to the Bayesian memory model's estimates
 of the half-life of your memory for each card.
 
 ```
-$ mg -s de.digits.mg
+$ mg status
 ** welcome **
 probability of recall histogram:
 [  0%,   5%] (0)
@@ -203,7 +199,7 @@ predicted to have decayed, at a rate depending on how to rated them in
 the learning session:
 
 ```
-$ mg -s de.digits.mg
+$ mg status
 ** welcome **
 probability of recall histogram:
 [  0%,   5%] (0)
@@ -230,10 +226,11 @@ probability of recall histogram:
 ```
 
 Finally, you can get a more detailed breakdown of the per-card probabilities
-with the 'preview' mode, `mg -p`:
+with some of the other options from the status mode, such as the `--list`
+option:
 
 ```
-$ mg -p de.digits.mg
+$ mg status --list
 ** welcome **
 cards (probability of recall):
    1. 4--vier [191s ago]                                              ( 23.9%)
@@ -255,11 +252,11 @@ cards.
 ## Step 4: Drill a deck
 
 Now for the main event: To practice our flashcards with with `mg`!
-For this, we use 'drill' mode, which is the default and has no flag.
+For this, we use 'drill' mode, `mg drill`.
 Simply run:
 
 ```
-$ mg de.digits.mg
+$ mg drill
 ```
 
 `mg` will use the memory model to find the six (see `--num_cards` flag to
@@ -344,10 +341,8 @@ Some final notes:
 
 * Continue until the end of the session for the model to be saved to disk.
 * If you need to or want to abort the session early, you can send
-  '^C' (control+C) or '^D' (control+D). The session will not be saved.
-  Note: In the future I might make one of these save the session and the
-  other abort without saving, so that it's still possible to abort without
-  losing progress during long sessions.
+  '^C' (control+C) (the session so far will be saved) or
+  '^D' (control+D) (the session so far will not be saved).
 * You can also drill cards *backwards*, that is, to type the front of the
   card after being prompted with the back of the card. Use the `--reverse`
   flag for this.
@@ -369,19 +364,21 @@ further customisation options below.
 
 ### Topics
 
-The most basic enhancement is to add a 'topic' to each link. This can later
-be used to filter for certain subgroups of cards in larger decks (see `mg`'s
-`--topics` flag).
-Specifying a topic for a knowledge link is as simple as including a string
-as a third component of the tuple. For example, we could add the `"de.num"`
-topic to all ten cards in our deck as follows:
+The most basic enhancement is to add 'topics' to each link. This can later
+be used to filter for certain subgroups of cards for when the collection of
+decks and cards in the current directory is much larger.
+(see `mg drill --help` for information on how to specify topics).
+Specifying topics for a knowledge link requires adding a dot-separated string
+of topics as a third component to the link tuple in the generator function.
+For example, we could add the topics `de` and `digits` to all ten cards in
+our deck as follows:
 
 ```python
 D = ['null','eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun']
 def graph():
     for i, n in enumerate(D):
-        yield i, n, "de.num"
-# +               ^^^^^^^^^^
+        yield i, n, "de.digits"
+# +               ^^^^^^^^^^^^^
 ```
 
 ### Custom display and comparison strings
@@ -476,35 +473,37 @@ you can learn which answer to give along with which version of the prompt.
 
 ## Step 6: Modifying a deck after learning
 
-The memory model parameters are stored in the deck directory in a JSON
-file called `data.json` (in our example, that's `de.digits.mg/data.json`).
+To store the memory model parameters, `mg` creates a subdirectory of the
+current directory called `mgdata/`. The memory model parameters from cards
+in a `.mg` script are stored here inside a file with the same name plus a
+`.json` extension (in our example, that's `mgdata/de.digits.mg.json`).
 Within are the parameters for each card, keyed by a string made up of the
 card's front and back 'index strings'
 (see [above](#custom-display-and-comparison-strings))
-and, if present, the optional topic (see [above](#topics)).
+and, if present, the optional topics (see [above](#topics)).
 
 The advantage of this is that you can reorder/insert into the generator
 script's output as much as you like and they will still be found.
 
 But the disadvantage is that if you change the value or even the spelling
 of a node, its index into the data file will change, and the memory
-parameters already there will be orphaned.
+parameters already there will be 'orphaned'.
 
-Sometimes, for example when you are simply correcting a card, you want
-to keep the same parameters. In this case, unfortunately, the only
-way to achieve this is to go into `data.json`, find the entry with the
-old key, and update the key (ensuring no current `mg` sessions later
-save over your modifications, such as at the end of a learning or
-drill session).
+Sometimes, for example when you are simply correcting a card,
+you want to keep the same parameters.
+In this case, unfortunately, the only way to achieve this is to go into
+data file, find the entry with the old key, and update the key (ensuring
+no current `mg` sessions later save over your modifications, such as at
+the end of a learning or drill session).
 
 In other cases, you want to reset the parameters, as if you were deleting
 the old card and creating a new one. Then you can either leave the
 orphaned entry in the data file (it does no harm other than taking up
 space) or you can find and delete it manually.
 
-> #### Help Wanted:
+> #### Future:
 > 
 > Unfortunately this step is quite clunky.
-> I'm still thinking about the best way to handle this process
-> of maintaining these data file references.
-> Do you have any ideas? Let me know!
+> I'm planning to incorporate a `checkup` mode into the `mg` script which
+> which will help automatically detect and correct these broken references
+> to save users from dealing with the data files.

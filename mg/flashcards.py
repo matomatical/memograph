@@ -1,4 +1,6 @@
+import os
 import re
+import glob
 import time
 import runpy
 import itertools
@@ -10,7 +12,11 @@ from mg import ptdb
 from mg import topk
 
 from mg.graph import load_link
-    
+
+# ensure mgdata directory exists
+# TODO: This really does NOT BELONG here
+if not os.path.isdir("mgdata"):
+    os.mkdir("mgdata")
 
 
 class Deck:
@@ -18,22 +24,22 @@ class Deck:
     A collection of flashcards, from which one can draw unseen or at-risk
     cards for review
     """
-    def __init__(self, graph_specs, reverse=False, topics=None):
+    def __init__(self, topics=set()):
+        deck_paths = glob.glob('*.mg') # TODO: Allow configure?
         self.deck = []
         self.news = []
         allcards = []
         self.dbs = []
-        for graph_path, data_path in graph_specs:
+        for path in deck_paths:
             # load the knowledge graph's links and their memory parameters
-            graph = runpy.run_path(graph_path)['graph']()
-            data = ptdb.Database(data_path)
+            graph = runpy.run_path(path)['graph']()
+            data = ptdb.Database(os.path.join("mgdata", path+".json"))
             # wrap each link in a flashcard
             for uvt in graph:
                 link = load_link(*uvt)
-                if topics is not None:
-                    if not any(t in link.t for t in topics):
-                        continue
-                card = Card(link, data[link.index()], reverse)
+                card = Card(link, data[link.index()])
+                if not (topics <= card.topics()):
+                    continue
                 if card.is_new():
                     self.news.append(card)
                 else:
@@ -89,27 +95,22 @@ class Card:
     A flashcard, representing a knowledge graph link and also maintaining
     the memory model's parameter's for that card.
     """
-    def __init__(self, link, data, flip):
+    def __init__(self, link, data):
         self.link = link
         self.data = data
-        self.flip = flip
 
     def topics(self):
-        return self.link.t
+        return set(self.link.t.split("."))
 
     def face(self):
-        return self.link.v if self.flip else self.link.u
+        return self.link.u
 
     def back(self):
-        return self.link.u if self.flip else self.link.v
+        return self.link.v
 
     def __iter__(self):
-        if self.flip:
-            yield self.link.v
-            yield self.link.u
-        else:
-            yield self.link.u
-            yield self.link.v
+        yield self.link.u
+        yield self.link.v
     
     def is_new(self):
         """bool: the card is yet to be initialised"""
@@ -163,7 +164,7 @@ class Card:
     def _log(self, event, **data):
         # TODO: COMPLETELY OVERHAUL THIS WHOLE CARD AND DECK SYSTEM IT'S SHIT
         import json
-        with open("mglog.jsonl", 'a') as file:
+        with open("mgdata/log.jsonl", 'a') as file:
             line = json.dumps({
                     'id': self.link.index(),
                     'time': self._current_time(),
