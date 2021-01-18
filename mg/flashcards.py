@@ -28,7 +28,8 @@ class Deck:
         deck_paths = glob.glob('*.mg') # TODO: Allow configure?
         self.deck = []
         self.news = []
-        allcards = []
+        self.allcards = []
+        self.topcards = []
         self.dbs = []
         for path in deck_paths:
             # load the knowledge graph's links and their memory parameters
@@ -38,18 +39,19 @@ class Deck:
             for uvt in graph:
                 link = load_link(*uvt)
                 card = Card(link, data[link.index()])
+                self.allcards.append(card)
                 if not (topics <= card.topics()):
                     continue
+                self.topcards.append(card)
                 if card.is_new():
                     self.news.append(card)
                 else:
                     self.deck.append(card)
-                allcards.append(card)
             self.dbs.append(data)
         # number duplicate nodes
         for side in [Card.face, Card.back]:
             nodes = {}
-            for card in allcards:
+            for card in self.topcards:
                 node = side(card)
                 index = node.index()
                 if index in nodes:
