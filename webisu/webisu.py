@@ -11,12 +11,6 @@ Functions:
     logarithm of probability density at time t for recall probability p.
 * p_recall_t_pdf(p, t, θ)
     exponentiated version of the above.
-* p_recall_t_lncdf(p, t, θ):
-    logarithm of cumulative density at time t for recall probability p.
-    NOT YET IMPLEMENTED.
-* p_recall_t_cdf(p, t, θ)
-    exponentiated version of the above.
-    NOT YET IMPLEMENTED.
 * p_recall_t_lnmean(t, θ):
     logarithm of mean/expected recall probability at time t.
 * p_recall_t_mean(t, θ):
@@ -27,6 +21,15 @@ Functions:
 * init_model(λ, α=2, β=α):
     return an initial model with some optional default values, you
     just need to provide a half-life in your preferred unit of time.
+
+Future functions:
+
+* p_recall_t_lncdf(p, t, θ):
+    logarithm of cumulative density at time t for recall probability p.
+    NOT YET IMPLEMENTED.
+* p_recall_t_cdf(p, t, θ)
+    exponentiated version of the above.
+    NOT YET IMPLEMENTED.
 
 
 On parameters θ:
@@ -41,16 +44,10 @@ the components of this parameter triple is as follows:
 
 TODO:
 
-* Is it appropriate to call the third parameter a 'half-life'---do things
-  indeed stay balanced? Reconsider this to make sure it makes sense.
 * Consider putting a cap/floor on δ during updates, since this might help
   solve numerical issues and ensure stability in the learning app itself,
   at the small cost of a reasonable limit on how drastically the model
   can update in a particular step.
-* Currently the update method does not change λ, should consider some
-  appropriate mechanisms including ebisu proper's method of setting to
-  t and rebalancing as necessary (but I probably would prefer a simpler
-  scheme such as just adapting it in either direction depending on r).
 """
 
 
@@ -161,37 +158,82 @@ def p_recall_t_mean(t, θ):
 
 def update_model_bernoulli(r, t, θ):
     """
-    Compute the posterior model parameters after a Bayesian update to
-    the beta distribution at the half-life for a single review after
-    elapsed time t with recall result r (recalled=True, failed=False).
+    Compute the approximate Beta posterior model parameters after a
+    Bayesian update based on a single review.
 
-    TODO: How to decide new λ? for now set t'=λ (so δε=1)
+    The hypothetical process is as follows:
+
+        1. prior P_recall@λ_old ~ Beta(α_old, β_old)
+         |
+         | move through time (the quiz is at elapsed time t)
+         V
+        2. prior P_recall@t     ~ GeneralisedBeta1(...)
+         |
+         | quiz result r (True for pass, False for fail)
+         V
+        3. postr P_recall@t     ~ (some other analytical expression)
+         |
+         | approximate λ_new by solving the equation:
+         |     E[postr P_recall@λ_old] approx. = 2^-λ_old/λ_new
+         | and time transform the posterior to this time
+         V
+        4. postr P_recall@λ_new ~ (some other analytical expression)
+         |
+         | moment-match a Beta distribution to approximate
+         V
+        5. postr P_recall@λ_new approx. ~ Beta(α_new, β_new)
+
+    This function takes parameters assuming you have completed steps 1
+    and 2, and reasons through steps 3, 4, and 5, returning the approx.
+    posterior's parameters θ_new = (α_new, β_new, λ_new).
     """
-    α, β, λ = θ
-    δ = t / λ
+    _, _, λ_old = θ
 
-    # for now, just set the new half-life to the same as the old;
-    # TODO: come up with an elegant way to select a new half-life
-    λ_new = λ
-    δε = 1
-
-    # compute the moments of the posterior distribution at the new half-life
-    if r:
-        _ln_m = lambda N: ln_betafn(α + δ + N*δε, β)
-    else:
-        _ln_m = lambda N: lnsubexp(ln_betafn(α+N*δε,β), ln_betafn(α+δ+N*δε,β))
-    ln_mNdenom = _ln_m(0)
-    ln_m1numer = _ln_m(1)
-    ln_m2numer = _ln_m(2)
-    m1   = exp(ln_m1numer - ln_mNdenom)
-    m2   = exp(ln_m2numer - ln_mNdenom)
-    m1sq = exp(2*(ln_m1numer - ln_mNdenom))
-    mean = m1
-    var  = m2 - m1sq
-
-    # match a beta distribution to this posterior to give the new model
+    # calculate the posterior after update at time t, shifted
+    # back to time λ_old
+    postr_λ_old = _analytic_posterior_bernoulli(r, t, λ_old, θ)
+    
+    # use this posterior mean to approximate the new half-life
+    ln_μ_λ_old = postr_λ_old.ln_moment(1)
+    λ_new = - λ_old * ln(2) / ln_μ_λ_old
+    
+    # compute again the posterior, this time shifted to λ_new
+    postr_λ_new = _analytic_posterior_bernoulli(r, t, λ_new, θ)
+    
+    # match the posterior's moments with a beta distribution
+    # to fit a new model
+    ln_m1 = postr_λ_new.ln_moment(1)
+    ln_m2 = postr_λ_new.ln_moment(2)
+    mean  = exp(ln_m1)
+    var   = exp(ln_m2) - exp(2*ln_m1)
+    
     α_new, β_new = beta_match_moments(mean, var)
     return (α_new, β_new, λ_new)
+
+
+class _analytic_posterior_bernoulli:
+    def __init__(self, result, t_update, t_new, prior):
+        self.r  = result
+        α, β, λ = prior
+        self.α  = α
+        self.β  = β
+        self.δ  = t_update / λ
+        # ε * δ = (t_new / t_update) * (t_update / λ)
+        self.δε = t_new / λ
+        # precompute the denominator:
+        self._ln_moment_denom = self._ln_moment_numer(0)
+    def moment(self, n):
+        return exp(self.ln_moment(n))
+    def ln_moment(self, n):
+        return self._ln_moment_numer(n) - self._ln_moment_denom
+    def _ln_moment_numer(self, n):
+        if self.r:
+            return ln_betafn(self.α + n*self.δε + self.δ, self.β)
+        else:
+            return lnsubexp(
+                ln_betafn(self.α + n*self.δε,          self.β),
+                ln_betafn(self.α + n*self.δε + self.δ, self.β)
+            )
 
 
 def init_model(λ, α=2, β=None):
