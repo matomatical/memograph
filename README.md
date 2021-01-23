@@ -1,7 +1,9 @@
 # memograph
 
 A utility for drilling flashcards based on an online Bayesian
-spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu)).
+spaced-repetition memory model
+(the algorithm of [ebisu](https://github.com/fasiha/ebisu), but my own
+independent implementation).
 
 For example decks and my memory models, see
 [memograph-decks](https://github.com/matomatical/memograph-decks) repo.
@@ -13,8 +15,7 @@ see [tutorial](tutorial/).
 
 * Install Python 3.7 or higher.
 * Clone this repository.
-* Install requirement [`ebisu`](https://github.com/fasiha/ebisu) e.g. with
-  `pip install -r requirements.txt`.
+* There are no mandatory Python dependencies right now.
 * If using TTS, install [`espeak`](https://github.com/espeak-ng/espeak-ng/).
 * Create some flashcard decks (.mg directories).
   See also the [tutorial](tutorial/) or my repository of decks
@@ -65,6 +66,12 @@ export PYTHONPATH="/path/to/repo/memograph:$PYTHONPATH"
 alias mg="python3 -m mg"
 ```
 
+The `webisu` subproject also needs to be on the Python path. I think the
+above command will do the trick since `import webisu` will look inside the
+repo directory for `webisu` and it should find it there.
+
+TODO: Clean this up.
+
 ### Deck format
 
 You can create your own flashcard decks by creating a directory in the
@@ -96,9 +103,6 @@ or the example repository of decks
   * Mathematics equations (in the terminal?!)
   * Support image-based flashcards.
 * Find a nice way to allow custom assessment (autocomplete?)
-* There is a noticable delay to import ebisu, which pulls numpy.
-  Consider reimplementing in pure python if possible (also this
-  will be fun!).
 
 #### Done:
 
@@ -108,6 +112,8 @@ or the example repository of decks
   * Switch to standard readline for the input (forgo rprompt... for now!)
   * Switch to simpler, home-built formatted printing functionality
   * Reimplement right-aligned printing using '\r' and terminal width
+* There is a noticable delay to import ebisu, which pulls numpy.
+  Reimplement the Bayesian scheduling algorithm in pure Python.
 * Add multimedia extensions:
   * Text-to-speech e.g. for language cards
 * Add a [tutorial](tutorial/).
