@@ -1,7 +1,8 @@
 # memograph
 
 A utility for drilling flashcards based on an online Bayesian
-spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu)).
+spaced-repetition memory model ([ebisu](https://github.com/fasiha/ebisu))
+(see also `ebisu-pure-python` branch for my independent reimplementation).
 
 For example decks and my memory models, see
 [memograph-decks](https://github.com/matomatical/memograph-decks) repo.
@@ -15,6 +16,10 @@ see [tutorial](tutorial/).
 * Clone this repository.
 * Install requirement [`ebisu`](https://github.com/fasiha/ebisu) e.g. with
   `pip install -r requirements.txt`.
+  * ebisu pulls also `numpy` and `scipy`. It's for good reason, but if you
+    prefer, there is an experimental branch of this repo `ebisu-pure-python`
+    which contains a Pure-python reimplementation of the memory model which
+    removes this requirement.
 * If using TTS, install [`espeak`](https://github.com/espeak-ng/espeak-ng/).
 * Create some flashcard decks (.mg directories).
   See also the [tutorial](tutorial/) or my repository of decks
