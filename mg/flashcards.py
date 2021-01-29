@@ -6,7 +6,7 @@ import runpy
 import itertools
 import collections
 
-import ebisu
+import webisu.ebisu as ebisu
 
 from mg import ptdb
 from mg import topk
