@@ -94,12 +94,6 @@ def get_options():
             action="store_true",
             help="reverse card sides for session",
         )
-    drillparser.add_argument(
-            '-m',
-            '--missed',
-            action="store_true",
-            help="restrict to recently-failed and just-learned cards",
-        )
 
     # # #
     # learn subcommand
@@ -167,10 +161,11 @@ def get_options():
     # # #
     # future commands
     # 
-    subparsers.add_parser("history",   help="coming soon...")
-    subparsers.add_parser("recompute", help="coming soon...")
-    subparsers.add_parser("commit",    help="coming soon...")
-    subparsers.add_parser("sync",      help="coming soon...")
+    subparsers.add_parser("history",    help="coming soon...")
+    subparsers.add_parser("recompute",  help="coming soon...")
+    subparsers.add_parser("commit",     help="coming soon...")
+    subparsers.add_parser("sync",       help="coming soon...")
+    subparsers.add_parser("missed",     help="coming soon...")
 
     # # #
     # parsing and post-processing
