@@ -147,12 +147,13 @@ class KnowledgeGraph:
         self.topic_links = links
         
     def count(self, topics=None, new=False):
+
         if not topics:
             topics = [".all"]
         if new:
-            topics.append(".new")
+            topics = [".new", *topics]
         else:
-            topics.append(".old")
+            topics = [".old", *topics]
         links = set.intersection(*(self.topic_links[t] for t in topics))
         return len(links)
 
@@ -160,9 +161,9 @@ class KnowledgeGraph:
         if not topics:
             topics = [".all"]
         if new:
-            topics.append(".new")
+            topics = [".new", *topics]
         else:
-            topics.append(".old")
+            topics = [".old", *topics]
         links = set.intersection(*(self.topic_links[t] for t in topics))
         if new:
             return list(itertools.islice(links, number))

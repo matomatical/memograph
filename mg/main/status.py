@@ -31,7 +31,7 @@ def plot_histogram(graph, topics):
     if n_total == 0:
         print("no cards! try adding some or changing the topic.")
         return
-    if n_seen:
+    if n_seen > 0:
         print("probability of recall histogram:")
         probs = [l.m.predict(exact=True) for l in graph.query(topics=topics)]
         print_hist(probs, lo=0, hi=1, bins=20, height=56, labelformat="4.0%")

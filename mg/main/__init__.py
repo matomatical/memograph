@@ -42,8 +42,8 @@ def main():
         print("\nbye! (not saving)")
         saving = False
     if saving:
-        print("saving...")
+        print("saving...", flush=True, end=" ")
         db.save()
         log.save()
-    print("done!")
+        print("done!")
 
