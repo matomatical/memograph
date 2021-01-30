@@ -28,9 +28,12 @@ def justify(l="", r="", padding=0):
     rlen = ansi_len(r)
     if GLOBAL_OUTPUT_ENABLED:
         cols = os.get_terminal_size().columns
+        # TODO: WTF am i doing here with \r when I can just print them both!?
+        #       this is only necessary for input?
         if cols >= llen + rlen + padding:
             return "\r" + " "*(cols-rlen) + r + "\r" + l
-        return "\r" + " "*(cols-rlen) + r + "\n" + l
+        else:
+            return "\r" + " "*(cols-rlen) + r + "\n" + l
     return r + "\n" + l
 
 # # # # # # # #

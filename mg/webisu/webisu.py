@@ -53,9 +53,9 @@ TODO:
 
 from math import exp, pow as mpow
 
-from webisu.pmath import ln_gammafn, ln_betafn
-from webisu.pmath import ln, ln1p, lnsubexp
-from webisu.pmath import beta_match_moments
+from mg.webisu.pmath import ln_gammafn, ln_betafn
+from mg.webisu.pmath import ln, ln1p, lnsubexp
+from mg.webisu.pmath import beta_match_moments
 
 # TODO: Also move GB1 pdf and expectation to a stats module? Then this
 # module could just be about piping the parameters into the distribns...!

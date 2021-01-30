@@ -1,6 +1,7 @@
-from mg.io import print
+from mg.io      import print
 from mg.options import get_options
-from mg.flashcards import Deck
+from mg.graph   import KnowledgeGraph
+from mg.data    import Database, Log, load_graph
 
 from mg.main.status  import run_status
 from mg.main.drill   import run_drill
@@ -12,29 +13,37 @@ def main():
     options = get_options()
     print("<bold>**<reset> welcome <bold>**<reset>")
 
-    # now load cards, filtering for provided topics
-    deck = Deck(options.topics)
+    # load graph and memory model data
+    db = Database(options.db_path)
+    log = Log(options.log_path)
+    graph = KnowledgeGraph(load_graph(options.graph_path), db, log)
 
     # run program
+    saving = False
     try:
         if options.subcommand == "status":
-            run_status(deck, options)
+            saving = False
+            run_status(graph, options)
         elif options.subcommand == "drill":
-            run_drill(deck, options)
-            print("saving.")
-            deck.save()
+            saving = True
+            run_drill(graph, options)
         elif options.subcommand == "learn":
-            run_learn(deck, options)
-            print("saving.")
-            deck.save()
+            saving = True
+            run_learn(graph, options)
         elif options.subcommand == "checkup":
-            run_checkup(deck, options)
-            print("saving.")
-            deck.save()
+            saving = True
+            run_checkup(graph, options)
         else:
+            saving = False
             print(subcommand, "not implemented")
     except KeyboardInterrupt:
-        print("\nbye! (saving.)")
-        deck.save()
+        print("\nbye!")
     except EOFError:
-        print("\nbye! (not saving.)")
+        print("\nbye! (not saving)")
+        saving = False
+    if saving:
+        print("saving...")
+        db.save()
+        log.save()
+    print("done!")
+

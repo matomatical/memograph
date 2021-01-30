@@ -2,15 +2,10 @@ import random
 
 from mg.io import print, input
 
-def run_drill(deck, options):
+def run_drill(graph, options):
     # decide which cards to drill
-    if options.missed:
-        print("drill some tough/fresh cards...")
-        hand = [c for c in deck.draw() if not c.is_recalled()]
-        hand = hand[:options.num_cards]
-    else:
-        print("drill some old cards...")
-        hand = deck.draw(options.num_cards)
+    print("drill some old cards...")
+    hand = graph.query(number=options.num_cards, topics=options.topics)
     n = len(hand)
     if n == 0:
         print("no old cards! try learning some new ones.")
@@ -18,20 +13,20 @@ def run_drill(deck, options):
     random.shuffle(hand)
 
     # drill the cards
-    for i, card in enumerate(hand, 1):
+    for i, link in enumerate(hand, 1):
         print(f"<bold>**<reset> drill {i}/{n} <bold>**<reset>")
         if options.reverse:
-            back, face = card
+            face, back = link.v, link.u
         else:
-            face, back = card
-        if card.topics(): print("topics:", '.'.join(card.topics()))
+            face, back = link.u, link.v
+        if link.t: print("topics:", link.t)
         print("prompt:", face.label())
         face.media()
         guess = input("recall:")
         if back.match(guess):
             print(f"answer: <bold><green>{back.label()}<reset>")
             back.media()
-            card.update(True)
+            link.m.update(True)
         else:
             print(f"answer: <bold><red>{back.label()}<reset>")
             back.media()
@@ -39,9 +34,9 @@ def run_drill(deck, options):
             commit = input("commit:", r=instructions)
             if commit == "g":
                 print("<bold><green>got it!<reset>")
-                card.update(True)
+                link.m.update(True)
             elif commit == "s":
-                card.review()
+                link.m.review()
             else:
-                card.update(False)
+                link.m.update(False)
 

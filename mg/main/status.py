@@ -2,7 +2,7 @@ from mg.io import print, input
 from mg.plot import print_hist
 from mg.color import colormap_red_green as color, to_hex
 
-def run_status(deck, options):
+def run_status(graph, options):
     # check at least one selected
     ps = [
             options.histogram,
@@ -15,25 +15,25 @@ def run_status(deck, options):
 
     # plot!
     if options.histogram:
-        plot_histogram(deck)
+        plot_histogram(graph, options.topics)
     if options.posterior:
-        plot_posterior(deck)
+        plot_posterior(graph, options.topics)
     if options.scatter:
-        plot_scatter(deck)
+        plot_scatter(graph, options.topics)
     if options.list:
-        plot_list(deck)
+        plot_list(graph, options.topics)
 
 
-def plot_histogram(deck):
-    n_seen  = deck.num_old()
-    n_new   = deck.num_new()
+def plot_histogram(graph, topics):
+    n_seen  = graph.count(topics=topics, new=False)
+    n_new   = graph.count(topics=topics, new=True)
     n_total = n_seen + n_new
     if n_total == 0:
         print("no cards! try adding some or changing the topic.")
         return
     if n_seen:
         print("probability of recall histogram:")
-        probs = [c.predict(exact=True) for c in deck.draw()]
+        probs = [l.m.predict(exact=True) for l in graph.query(topics=topics)]
         print_hist(probs, lo=0, hi=1, bins=20, height=56, labelformat="4.0%")
     print(
         f"{n_seen} cards seen ({n_seen/n_total:.0%}),",
@@ -42,24 +42,24 @@ def plot_histogram(deck):
 
 
 # TODO
-def plot_posterior(deck):
+def plot_posterior(graph, topics):
     print("posterior plot: not yet implemented.")
 
 
 # TODO
-def plot_scatter(deck):
+def plot_scatter(graph, topics):
     print("scatter plot: not yet implemented.")
 
 
-def plot_list(deck):
+def plot_list(graph, topics):
     print("cards (probability of recall):")
     i = 1
-    for card in deck.draw():
-        p = card.predict(exact=True)
+    for link in graph.query(topics=topics, new=False):
+        p = link.m.predict(exact=True)
         c = to_hex(color(p))
-        print(f"<bold>{i:>4d}.<reset>", card, r=f"(<{c}>{p:>6.1%}<reset>)")
+        print(f"<bold>{i:>4d}.<reset>", link, r=f"(<{c}>{p:>6.1%}<reset>)")
         i += 1
-    for card in deck.draw_new():
-        print(f"<bold>{i:>4d}.<reset>", card, r="(<faint>unseen<reset>)")
+    for card in graph.query(topics=topics, new=True):
+        print(f"<bold>{i:>4d}.<reset>", link, r="(<faint>unseen<reset>)")
         i += 1
 

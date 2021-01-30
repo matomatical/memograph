@@ -5,12 +5,12 @@ Note that there may still be some differences, as noted in each
 function, and in the README for this module.
 """
 
-from webisu.webisu import p_recall_t_lnpdf       as _p_recall_t_lnpdf
-from webisu.webisu import p_recall_t_pdf         as _p_recall_t_pdf
-from webisu.webisu import p_recall_t_lnmean      as _p_recall_t_lnmean
-from webisu.webisu import p_recall_t_mean        as _p_recall_t_mean
-from webisu.webisu import update_model_bernoulli as _update_model_bernoulli
-from webisu.webisu import init_model             as _init_model
+from mg.webisu.webisu import p_recall_t_lnpdf       as _p_recall_t_lnpdf
+from mg.webisu.webisu import p_recall_t_pdf         as _p_recall_t_pdf
+from mg.webisu.webisu import p_recall_t_lnmean      as _p_recall_t_lnmean
+from mg.webisu.webisu import p_recall_t_mean        as _p_recall_t_mean
+from mg.webisu.webisu import update_model_bernoulli as _update_model_bernoulli
+from mg.webisu.webisu import init_model             as _init_model
 
 
 def _convert_prior_to_params(prior):

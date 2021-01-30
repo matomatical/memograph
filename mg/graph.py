@@ -1,74 +1,175 @@
-"""
-Node and link classes for defining simple or rich knowledge graphs.
-"""
-import re
+import time
+import typing
+import itertools
 import collections
 
-from mg.media import speak
+import mg.webisu.ebisu as ebisu
+import mg.topk as topk
 
-PRIMITIVE = (str, int, float, bool)
+from mg.node import Node, load_node
 
-def load_link(u, v, t=""):
-    if isinstance(u, PRIMITIVE):
-        u = Node(str(u))
-    if isinstance(v, PRIMITIVE):
-        v = Node(str(v))
-    return Link(u, v, t)
 
-class Link(collections.namedtuple("Link", ["u", "v", "t"])):
-    """
-    A link between two nodes in a knowlege graph, which forms the content
-    of a flashcard. The link has a topic (t) and two nodes (u and v).
-    """
-    def index(self):
-        u_str = self.u.index()
-        v_str = self.v.index()
-        t_str = f"[{self.t}]" if self.t else ""
-        return f"{u_str}-{t_str}-{v_str}"
+# # #
+# Bayesian Memory Model
+# 
 
-PARENTHESES = re.compile(r"\s*\([^)]*\)")
+class MemoryModel:
+    def __init__(self, key, database, log):
+        self.key = key
+        self.data = database[key] # modifiable reference
+        self.log = log
+    
+    def is_new(self):
+        """
+        bool: the memory model is yet to be initialised
+        """
+        return self.data == {}
 
-class Node:
-    """
-    A custom node of a knowledge graph, with flexible/independent
-    string content for indexing, display, comparison, and (optional)
-    vocalisation.
-    """
-    def __init__(
-                self,
-                index_str,
-                match_str=None,
-                print_str=None,
-                speak_str=None,
-                speak_voice=None,
-            ):
-        index_str = str(index_str)
-        self.index_str = index_str
-        if match_str is None:
-            self.match_str = index_str
+    def is_recalled(self):
+        """
+        bool: the last trial with this link passed
+        (false if failed *or* if never tried)
+        """
+        if 'lastResult' in self.data:
+            return self.data['lastResult']
         else:
-            self.match_str = str(match_str)
-        if print_str is None:
-            self.print_str = index_str
+            return False
+
+    def init(self, prior_params=[1, 1, 1*60*60]):
+        """
+        set up the memory model for the first time
+        """
+        self.data['priorParams'] = prior_params
+        self.data['numDrills'] = 0
+        self.data['lastTime'] = self._current_time()
+        self._log("LEARN", prior=prior_params)
+    
+    def predict(self, exact=False):
+        """
+        compute the expected (log) probability of recalling the link
+        (link must be initialised)
+        """
+        # new card, skip
+        elapsed_time = self._current_time() - self.data['lastTime']
+        prior_params = self.data['priorParams']
+        return ebisu.predictRecall(prior_params, elapsed_time, exact=exact)
+
+    def review(self):
+        """update time without updating memory model"""
+        self.data['lastTime'] = self._current_time()
+        self._log("REVIEW")
+
+    def update(self, got):
+        """
+        update the memory model based on the result of a drill
+        note: must be initialised
+        """
+        self.data['numDrills'] += 1
+        self.data['lastResult'] = got
+        now = self._current_time()
+        prior_params = self.data['priorParams']
+        elapsed_time = now - self.data['lastTime']
+        postr_params = ebisu.updateRecall(prior_params, got, 1, elapsed_time)
+        self.data['priorParams'] = postr_params
+        self.data['lastTime'] = now
+        self._log("DRILL", got=got)
+
+    def _current_time(_self):
+        return int(time.time())
+
+    def _log(self, event, **data):
+        self.log.log(
+            id=self.key,
+            time=self._current_time(),
+            event=event,
+            data=data,
+        )
+
+
+# # #
+# Knowledge Graph Link
+# 
+
+class Link(typing.NamedTuple):
+    u: Node
+    v: Node
+    t: str
+    m: MemoryModel
+    # w: int   # weight TODO
+
+    def __str__(self):
+        s = f"[{self.t}] {self.u.label()}"
+        if self.m.is_new():
+            return s
         else:
-            self.print_str = str(print_str)
-        if speak_str is None:
-            self.speak_str = None
+            elapsed_time = self.m._current_time() - self.m.data['lastTime']
+            return f"{s} [{elapsed_time}s ago]"
+
+
+# # #
+# Knowledge Graph
+#
+
+
+class KnowledgeGraph:
+    def __init__(self, items, database, log):
+        # generate and load all nodes and links from this script
+        unodes = collections.defaultdict(list)
+        vnodes = collections.defaultdict(list)
+        links  = collections.defaultdict(set)
+        for u, v, *t in items:
+            # topic is optional
+            t = t[0] if t else ""
+            # cast from primitive types
+            u = load_node(u)
+            v = load_node(v)
+            # detect duplicates
+            if u in unodes:
+                u.setnum(len(unodes[u])+1)
+                unodes[u][0].setnum(1)
+            unodes[u].append(u)
+            if v in vnodes:
+                v.setnum(len(vnodes[v])+1)
+                vnodes[v][0].setnum(1)
+            vnodes[v].append(v)
+            # load memory model
+            lindex = f"{u.index()}-[{t}]-{v.index()}"
+            model = MemoryModel(lindex, database, log)
+            # load and index link
+            link = Link(u, v, t, model)
+            for topic in t.split("."):
+                links[topic].add(link)
+            if link.m.is_new():
+                links[".new"].add(link)
+            else:
+                links[".old"].add(link)
+            links[".all"].add(link)
+        self.topic_links = links
+        
+    def count(self, topics=None, new=False):
+        if not topics:
+            topics = [".all"]
+        if new:
+            topics.append(".new")
         else:
-            self.speak_str = str(speak_str)
-        self.speak_voice = speak_voice
-        self.num = None
-    def index(self):
-        return self.index_str
-    def label(self):
-        if self.num is not None:
-            return f"{self.print_str} ({self.num})"
+            topics.append(".old")
+        links = set.intersection(*(self.topic_links[t] for t in topics))
+        return len(links)
+
+    def query(self, number=None, topics=None, new=False):
+        if not topics:
+            topics = [".all"]
+        if new:
+            topics.append(".new")
         else:
-            return self.print_str
-    def match(self, other):
-        return self.match_str == other
-    def media(self):
-        if self.speak_str is not None:
-            speak(self.speak_str, voice=self.speak_voice)
-    def setnum(self, num):
-        self.num = num
+            topics.append(".old")
+        links = set.intersection(*(self.topic_links[t] for t in topics))
+        if new:
+            return list(itertools.islice(links, number))
+        else:
+            key = lambda l: l.m.predict()
+            if number is None:
+                return sorted(links, key=key)
+            else:
+                return topk.topk(links, number, key=key, reverse=True)
+

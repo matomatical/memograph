@@ -3,7 +3,7 @@
 A utility for drilling flashcards based on an online Bayesian
 spaced-repetition memory model
 (the algorithm of [ebisu](https://github.com/fasiha/ebisu), but my own
-independent implementation).
+[independent implementation](mg/webisu/)).
 
 For example decks and my memory models, see
 [memograph-decks](https://github.com/matomatical/memograph-decks) repo.
@@ -65,12 +65,6 @@ putting the following lines into my `.zshrc`:
 export PYTHONPATH="/path/to/repo/memograph:$PYTHONPATH"
 alias mg="python3 -m mg"
 ```
-
-The `webisu` subproject also needs to be on the Python path. I think the
-above command will do the trick since `import webisu` will look inside the
-repo directory for `webisu` and it should find it there.
-
-TODO: Clean this up.
 
 ### Deck format
 
