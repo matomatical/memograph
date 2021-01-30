@@ -59,7 +59,7 @@ def plot_list(graph, topics):
         c = to_hex(color(p))
         print(f"<bold>{i:>4d}.<reset>", link, r=f"(<{c}>{p:>6.1%}<reset>)")
         i += 1
-    for card in graph.query(topics=topics, new=True):
+    for link in graph.query(topics=topics, new=True):
         print(f"<bold>{i:>4d}.<reset>", link, r="(<faint>unseen<reset>)")
         i += 1
 
