@@ -143,10 +143,14 @@ class KnowledgeGraph:
                 links[".new"].add(link)
             else:
                 links[".old"].add(link)
+                if link.m.is_recalled():
+                    links[".got"].add(link)
+                else:
+                    links[".forgot"].add(link)
             links[".all"].add(link)
         self.topic_links = links
         
-    def count(self, topics=None, new=False):
+    def count(self, topics=None, new=False, review=False):
 
         if not topics:
             topics = [".all"]
@@ -154,16 +158,20 @@ class KnowledgeGraph:
             topics = [".new", *topics]
         else:
             topics = [".old", *topics]
+        if review:
+            topics = [".forgot", *topics]
         links = set.intersection(*(self.topic_links[t] for t in topics))
         return len(links)
 
-    def query(self, number=None, topics=None, new=False):
+    def query(self, number=None, topics=None, new=False, review=False):
         if not topics:
             topics = [".all"]
         if new:
             topics = [".new", *topics]
         else:
             topics = [".old", *topics]
+        if review:
+            topics = [".forgot", *topics]
         links = set.intersection(*(self.topic_links[t] for t in topics))
         if new:
             return list(itertools.islice(links, number))

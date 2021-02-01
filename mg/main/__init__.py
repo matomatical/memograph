@@ -27,6 +27,9 @@ def main():
         elif options.subcommand == "drill":
             saving = True
             run_drill(graph, options)
+        elif options.subcommand == "review":
+            saving = True
+            run_drill(graph, options, review=True)
         elif options.subcommand == "learn":
             saving = True
             run_learn(graph, options)

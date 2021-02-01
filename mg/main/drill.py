@@ -2,10 +2,14 @@ import random
 
 from mg.io import print, input
 
-def run_drill(graph, options):
+def run_drill(graph, options, review=False):
     # decide which cards to drill
     print("drill some old cards...")
-    hand = graph.query(number=options.num_cards, topics=options.topics)
+    hand = graph.query(
+        number=options.num_cards,
+        topics=options.topics,
+        review=review,
+    )
     n = len(hand)
     if n == 0:
         print("no old cards! try learning some new ones.")

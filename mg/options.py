@@ -94,6 +94,31 @@ def get_options():
             action="store_true",
             help="reverse card sides for session",
         )
+    
+    # # #
+    # review subcommand
+    # 
+    reviewparser = subparsers.add_parser(
+            "review",
+            parents=[superparser],
+            description="mg review: practice fresh and recently-failed cards",
+            help="review fresh and recently-failed cards",
+            epilog=GRAPH_SPEC_HELP,
+        )
+    reviewparser.add_argument(
+            '-n',
+            '--num_cards',
+            metavar="N",
+            type=int,
+            default=NUMBER_DEFAULT, # if the flag is not present
+            help=f"number of cards in session (default {NUMBER_DEFAULT})",
+        )
+    reviewparser.add_argument(
+            '-r',
+            '--reverse',
+            action="store_true",
+            help="reverse card sides for session",
+        )
 
     # # #
     # learn subcommand
