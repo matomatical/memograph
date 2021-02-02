@@ -95,6 +95,7 @@ class Link(typing.NamedTuple):
     v: Node
     t: str
     m: MemoryModel
+    i: int
     # w: int   # weight TODO
 
     def __str__(self):
@@ -118,7 +119,7 @@ class KnowledgeGraph:
         vnodes = collections.defaultdict(list)
         links  = collections.defaultdict(set)
         indexs = set()
-        for u, v, *t in items:
+        for i, (u, v, *t) in enumerate(items):
             # topic is optional
             t = t[0] if t else ""
             # cast from primitive types
@@ -142,7 +143,7 @@ class KnowledgeGraph:
             else:
                 indexs.add(lindex)
             # load and index link
-            link = Link(u, v, t, model)
+            link = Link(u, v, t, model, i)
             for topic in t.split("."):
                 links[topic].add(link)
             if link.m.is_new():
@@ -180,11 +181,11 @@ class KnowledgeGraph:
             topics = [".forgot", *topics]
         links = set.intersection(*(self.topic_links[t] for t in topics))
         if new:
-            return list(itertools.islice(links, number))
+            key = lambda l: l.i
         else:
             key = lambda l: l.m.predict()
-            if number is None:
-                return sorted(links, key=key)
-            else:
-                return topk.topk(links, number, key=key, reverse=True)
+        if number is None:
+            return sorted(links, key=key)
+        else:
+            return topk.topk(links, number, key=key, reverse=True)
 
