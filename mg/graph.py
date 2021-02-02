@@ -117,6 +117,7 @@ class KnowledgeGraph:
         unodes = collections.defaultdict(list)
         vnodes = collections.defaultdict(list)
         links  = collections.defaultdict(set)
+        indexs = set()
         for u, v, *t in items:
             # topic is optional
             t = t[0] if t else ""
@@ -135,6 +136,11 @@ class KnowledgeGraph:
             # load memory model
             lindex = f"{u.index()}-[{t}]-{v.index()}"
             model = MemoryModel(lindex, database, log)
+            # ensure no duplicates (this allows repeats in graph.py)
+            if lindex in indexs:
+                continue
+            else:
+                indexs.add(lindex)
             # load and index link
             link = Link(u, v, t, model)
             for topic in t.split("."):
