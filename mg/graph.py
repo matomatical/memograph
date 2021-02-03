@@ -111,21 +111,27 @@ class Link(typing.NamedTuple):
 # Knowledge Graph
 #
 
-
 class KnowledgeGraph:
     def __init__(self, items, database, log):
         # generate and load all nodes and links from this script
         unodes = collections.defaultdict(list)
         vnodes = collections.defaultdict(list)
-        links  = collections.defaultdict(set)
-        indexs = set()
+        links = collections.defaultdict(set)
         for i, (u, v, *t) in enumerate(items):
             # topic is optional
             t = t[0] if t else ""
             # cast from primitive types
             u = load_node(u)
             v = load_node(v)
-            # detect duplicates
+            # load memory model
+            lindex = f"{u.index()}-[{t}]-{v.index()}"
+            model = MemoryModel(lindex, database, log)
+            # filter out duplicate links and number duplicate nodes
+            if lindex in links:
+                # we have already processed an identical link
+                continue
+            # and number duplicate u or v nodes with distinct connections
+            # TODO: Do this more efficiently of course
             if u in unodes:
                 u.setnum(len(unodes[u])+1)
                 unodes[u][0].setnum(1)
@@ -134,14 +140,6 @@ class KnowledgeGraph:
                 v.setnum(len(vnodes[v])+1)
                 vnodes[v][0].setnum(1)
             vnodes[v].append(v)
-            # load memory model
-            lindex = f"{u.index()}-[{t}]-{v.index()}"
-            model = MemoryModel(lindex, database, log)
-            # ensure no duplicates (this allows repeats in graph.py)
-            if lindex in indexs:
-                continue
-            else:
-                indexs.add(lindex)
             # load and index link
             link = Link(u, v, t, model, i)
             for topic in t.split("."):
@@ -155,10 +153,11 @@ class KnowledgeGraph:
                 else:
                     links[".forgot"].add(link)
             links[".all"].add(link)
-        self.topic_links = links
-        
-    def count(self, topics=None, new=False, review=False):
+            links[lindex].add(link)
+        self.links = links
 
+
+    def _query(self, topics=None, new=False, review=False):
         if not topics:
             topics = [".all"]
         if new:
@@ -167,25 +166,25 @@ class KnowledgeGraph:
             topics = [".old", *topics]
         if review:
             topics = [".forgot", *topics]
-        links = set.intersection(*(self.topic_links[t] for t in topics))
+        links = set.intersection(*(self.links[t] for t in topics))
+        return links
+
+    def count(self, topics=None, new=False, review=False):
+        links = self._query(topics, new, review)
         return len(links)
 
     def query(self, number=None, topics=None, new=False, review=False):
-        if not topics:
-            topics = [".all"]
+        links = self._query(topics, new, review)
         if new:
-            topics = [".new", *topics]
-        else:
-            topics = [".old", *topics]
-        if review:
-            topics = [".forgot", *topics]
-        links = set.intersection(*(self.topic_links[t] for t in topics))
-        if new:
+            # sort by lowest rank in load order
             key = lambda l: l.i
         else:
+            # sort by lowest recall probability
             key = lambda l: l.m.predict()
         if number is None:
+            # full sort
             return sorted(links, key=key)
         else:
+            # just efficiently find the lowest k please
             return topk.topk(links, number, key=key, reverse=True)
 
