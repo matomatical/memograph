@@ -1,3 +1,5 @@
+import sys
+
 from mg.io      import print
 from mg.options import get_options
 from mg.graph   import KnowledgeGraph
@@ -14,9 +16,13 @@ def main():
     print("<bold>**<reset> welcome <bold>**<reset>")
 
     # load graph and memory model data
-    db = Database(options.db_path)
-    log = Log(options.log_path)
-    graph = KnowledgeGraph(load_graph(options.graph_path), db, log)
+    try:
+        db = Database(options.db_path)
+        log = Log(options.log_path)
+        graph = KnowledgeGraph(load_graph(options.graph_path), db, log)
+    except Exception as e:
+        print("<red><bold>error:<reset>", e)
+        sys.exit(1)
 
     # run program
     saving = False

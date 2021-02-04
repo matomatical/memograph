@@ -4,7 +4,10 @@ import runpy
 
 
 def load_graph(source_path):
-    return runpy.run_path(source_path)['graph']()
+    if os.path.lexists(source_path):
+        return runpy.run_path(source_path)['graph']()
+    else:
+        raise Exception(f"No such graph file {source_path!r}")
 
 
 class Database(dict):
@@ -12,8 +15,9 @@ class Database(dict):
         super().__init__()
         self.path = path
         # load (TODO: Allow live reloading)
-        with open(self.path, 'r') as f:
-            self.update(json.load(f))
+        if os.path.lexists(self.path):
+            with open(self.path, 'r') as f:
+                self.update(json.load(f))
     def save(self):
         _ensure(self.path)
         with open(self.path, 'w') as f:
