@@ -41,7 +41,6 @@ def run_info(graph, options):
 
 
 def filter_topics(topics, graph):
-    for key in graph.links.keys():
+    for key in graph.keys:
         if all(t in key for t in topics):
-            if len(graph.links[key]) == 1:
-                yield key
+            yield key

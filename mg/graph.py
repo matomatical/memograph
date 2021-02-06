@@ -3,7 +3,6 @@ import typing
 import itertools
 import collections
 
-import mg.webisu.ebisu as ebisu
 import mg.webisu as webisu
 import mg.topk as topk
 
@@ -144,6 +143,7 @@ class KnowledgeGraph:
         unodes = collections.defaultdict(list)
         vnodes = collections.defaultdict(list)
         links = collections.defaultdict(set)
+        allkeys = set()
         for i, (u, v, *t) in enumerate(items):
             # topic is optional
             t = t[0] if t else ""
@@ -181,8 +181,9 @@ class KnowledgeGraph:
                     links[".forgot"].add(link)
             links[".all"].add(link)
             links[lindex].add(link)
+            allkeys.add(lindex)
         self.links = links
-
+        self.keys = list(allkeys)
 
     def _query(self, topics=None, new=False, review=False):
         if not topics:

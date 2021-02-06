@@ -218,5 +218,9 @@ def get_options():
             options.list,
         ]):
             options.histogram = True
+    if options.subcommand == "checkup":
+        options.load_log = True
+    else:
+        options.load_log = False
     return options
 

@@ -14,7 +14,6 @@ class Database(dict):
     def __init__(self, path):
         super().__init__()
         self.path = path
-        # load (TODO: Allow live reloading)
         if os.path.lexists(self.path):
             with open(self.path, 'r') as f:
                 self.update(json.load(f))
@@ -51,7 +50,7 @@ class Log:
         _ensure(self.path)
         with open(self.path, 'a') as file:
             for line in self.new_lines:
-                print(line, file=file)
+                print(json.dumps(line), file=file)
 
 
 def _ensure(path):

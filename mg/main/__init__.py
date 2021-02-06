@@ -19,10 +19,10 @@ def main():
     # load graph and memory model data
     try:
         db = Database(options.db_path)
-        log = Log(options.log_path)
+        log = Log(options.log_path, load=options.load_log)
         graph = KnowledgeGraph(load_graph(options.graph_path), db, log)
     except Exception as e:
-        print("<red><bold>error:<reset>", e)
+        print(f"<red><bold>data error ({e.__class__.__name__}):<reset>", e)
         sys.exit(1)
 
     # run program
@@ -44,8 +44,8 @@ def main():
             saving = False
             run_info(graph, options)
         elif options.subcommand == "checkup":
-            saving = True
-            run_checkup(graph, options)
+            saving = False
+            run_checkup(graph, db, log, options)
         else:
             saving = False
             print(subcommand, "not implemented")
