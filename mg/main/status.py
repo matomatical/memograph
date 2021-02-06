@@ -3,17 +3,6 @@ from mg.plot import print_hist
 from mg.color import colormap_red_green as color, to_hex
 
 def run_status(graph, options):
-    # check at least one selected
-    ps = [
-            options.histogram,
-            options.posterior,
-            options.scatter,
-            options.list
-        ]
-    if not any(ps):
-        options.histogram = True
-
-    # plot!
     if options.histogram:
         plot_histogram(graph, options.topics)
     if options.posterior:

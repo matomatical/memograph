@@ -9,6 +9,7 @@ from mg.main.status  import run_status
 from mg.main.drill   import run_drill
 from mg.main.learn   import run_learn
 from mg.main.checkup import run_checkup
+from mg.main.info    import run_info
 
 def main():
     # parse command-line input
@@ -39,6 +40,9 @@ def main():
         elif options.subcommand == "learn":
             saving = True
             run_learn(graph, options)
+        elif options.subcommand == "info":
+            saving = False
+            run_info(graph, options)
         elif options.subcommand == "checkup":
             saving = True
             run_checkup(graph, options)

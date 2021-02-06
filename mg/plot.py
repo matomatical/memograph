@@ -25,6 +25,8 @@ def print_hist(data, lo=None, hi=None, bins=30, height=22,
         bins = [lo + i/nbins * (hi - lo) for i in range(nbins+1)]
     else:
         nbins = len(bins) - 1
+        lo = bins[0]
+        hi = bins[-1]
     # build their labels
     labels = []
     for i, (b1, b2) in enumerate(zip(bins, bins[1:])):

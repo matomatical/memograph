@@ -172,7 +172,17 @@ def get_options():
             action="store_true",
             help="print every card with elapsed time and expected recall",
         )
-    
+
+    # # #
+    # info command
+    #
+    infoparser = subparsers.add_parser(
+            "info",
+            parents=[superparser],
+            description="mg info: inspect memory model for certain cards",
+            help="inspect individual memory models",
+        )
+
     # # #
     # checkup subcommand
     # 
@@ -200,5 +210,13 @@ def get_options():
         options.data_path = os.path.splitext(options.graph_path)[0] + ".mg"
     options.db_path  = os.path.join(options.data_path, "data.json")
     options.log_path = os.path.join(options.data_path, "log.jsonl")
+    if options.subcommand == "status":
+        if not any([
+            options.histogram,
+            options.posterior,
+            options.scatter,
+            options.list,
+        ]):
+            options.histogram = True
     return options
 

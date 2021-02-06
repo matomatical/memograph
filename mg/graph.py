@@ -4,6 +4,7 @@ import itertools
 import collections
 
 import mg.webisu.ebisu as ebisu
+import mg.webisu as webisu
 import mg.topk as topk
 
 from mg.node import Node, load_node
@@ -49,10 +50,21 @@ class MemoryModel:
         compute the expected (log) probability of recalling the link
         (link must be initialised)
         """
-        # new card, skip
         elapsed_time = self._current_time() - self.data['lastTime']
         prior_params = self.data['priorParams']
-        return ebisu.predictRecall(prior_params, elapsed_time, exact=exact)
+        if exact:
+            return webisu.p_recall_t_mean(t=elapsed_time, θ=prior_params)
+        else:
+            return webisu.p_recall_t_lnmean(t=elapsed_time, θ=prior_params)
+    
+    def density(self, prob):
+        """
+        compute the density of the probability of recalling the
+        link (link must be initialised)
+        """
+        elapsed_time = self._current_time() - self.data['lastTime']
+        prior_params = self.data['priorParams']
+        return webisu.p_recall_t_pdf(t=elapsed_time, θ=prior_params, p=prob)
 
     def review(self):
         """update time without updating memory model"""
@@ -69,10 +81,17 @@ class MemoryModel:
         now = self._current_time()
         prior_params = self.data['priorParams']
         elapsed_time = now - self.data['lastTime']
-        postr_params = ebisu.updateRecall(prior_params, got, 1, elapsed_time)
+        postr_params = webisu.update_model_bernoulli(
+            r=got,
+            t=elapsed_time,
+            θ=prior_params,
+        )
         self.data['priorParams'] = postr_params
         self.data['lastTime'] = now
         self._log("DRILL", got=got)
+
+    def elapsed(self):
+        return self._current_time() - self.data['lastTime']
 
     def _current_time(_self):
         return int(time.time())
@@ -84,6 +103,14 @@ class MemoryModel:
             event=event,
             data=data,
         )
+
+    def __str__(self):
+        return "(α={:.3f}, β={:.3f}, λ={:.1f}s)".format(
+            *self.data['priorParams'],
+            self._current_time() - self.data['lastTime']
+        )
+
+
 
 
 # # #
