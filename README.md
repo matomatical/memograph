@@ -11,9 +11,7 @@ For example decks and my memory models, see
 For a tutorial on using this app and creating your own decks,
 see [tutorial](tutorial/).
 
-![Example screenshot:
-  Delay-based probability-of-recall histogram (left);
-  practicing some nouns and genders (right)](screenshot.png)
+![Example screenshot: Delay-based probability-of-recall histogram (left); practicing some nouns and genders (right)](screenshot.png)
 
 ## Installation
 
