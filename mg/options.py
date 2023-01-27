@@ -42,9 +42,10 @@ def get_options():
         dest="subcommand",
         title="subcommands",
         help="run subcommand --help for detailed usage",
+        required=True,
     )
     # most subcommands allow for topics to be specified, as a set, and
-    # should allow some 
+    # should allow some (... unfinished comment from years ago?)
     superparser = argparse.ArgumentParser(add_help=False)
     superparser.add_argument(
         'topics',
@@ -196,11 +197,11 @@ def get_options():
     # # #
     # future commands
     # 
-    subparsers.add_parser("history",    help="coming soon...")
-    subparsers.add_parser("recompute",  help="coming soon...")
-    subparsers.add_parser("commit",     help="coming soon...")
-    subparsers.add_parser("sync",       help="coming soon...")
-    subparsers.add_parser("missed",     help="coming soon...")
+    subparsers.add_parser("history",    help="todo someday...")
+    subparsers.add_parser("recompute",  help="todo someday...")
+    subparsers.add_parser("commit",     help="todo someday...")
+    subparsers.add_parser("sync",       help="todo someday...")
+    subparsers.add_parser("missed",     help="todo someday...")
 
     # # #
     # parsing and post-processing
