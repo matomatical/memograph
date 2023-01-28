@@ -1,6 +1,6 @@
 import itertools
 
-from mg.io import print
+from mg.mgio import print
 from mg.color import colormap_red_green, to_hex
 
 

@@ -1,4 +1,4 @@
-from mg.io import print, input
+from mg.mgio import print, input
 
 def run_checkup(graph, db, log, options):
     loaded_keys = set(graph.keys)

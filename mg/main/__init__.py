@@ -1,6 +1,6 @@
 import sys
 
-from mg.io      import print
+from mg.mgio    import print
 from mg.options import get_options
 from mg.graph   import KnowledgeGraph
 from mg.data    import Database, Log, load_graph

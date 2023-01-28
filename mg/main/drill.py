@@ -1,6 +1,6 @@
 import random
 
-from mg.io import print, input
+from mg.mgio import print, input
 
 def run_drill(graph, options, review=False):
     # decide which cards to drill

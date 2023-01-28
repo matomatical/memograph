@@ -1,4 +1,4 @@
-from mg.io import print, input
+from mg.mgio import print, input
 from mg.plot import print_hist
 from mg.color import colormap_red_green as color, to_hex
 
